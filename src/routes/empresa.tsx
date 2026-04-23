@@ -23,7 +23,7 @@ const valores = [
 function EmpresaPage() {
   return (
     <div className="container mx-auto px-6 py-20 max-w-6xl">
-      <header className="mb-16 grid gap-10 md:grid-cols-[1fr_auto] items-center animate-fade-up">
+      <header className="mb-16 grid gap-10 md:grid-cols-[1fr_minmax(280px,360px)] items-center animate-fade-up">
         <div>
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">A empresa</p>
           <h1 className="text-4xl md:text-5xl font-bold mb-5">
@@ -36,9 +36,13 @@ function EmpresaPage() {
             Inteligência Artificial.
           </p>
         </div>
-        <div className="relative">
+        <div className="relative mx-auto md:mx-0 w-full max-w-sm">
           <div className="absolute -inset-6 rounded-full bg-gradient-primary opacity-25 blur-3xl" />
-          <img src={logo} alt="Logo 44CODE Tecnologia e Soluções" className="relative h-44 w-44 md:h-52 md:w-52 rounded-2xl object-cover border border-border shadow-elegant" />
+          <img
+            src={logo}
+            alt="Logo 44CODE Tecnologia e Soluções"
+            className="relative w-full h-auto aspect-square rounded-2xl object-cover border border-border shadow-elegant"
+          />
         </div>
       </header>
 
