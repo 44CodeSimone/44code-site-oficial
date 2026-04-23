@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Github, Menu, X } from "lucide-react";
 import { useState } from "react";
-import logo from "@/assets/logo-44code-wide.png";
+import logo from "@/assets/logo-44code.png";
 
 const links = [
   { to: "/", label: "Início" },
@@ -17,12 +17,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center font-bold shrink-0" aria-label="44CODE — Tecnologia e Soluções">
-          <img
-            src={logo}
-            alt="44CODE — Tecnologia e Soluções"
-            className="h-14 sm:h-16 md:h-20 w-auto rounded-lg object-cover ring-1 ring-primary/40 shadow-glow"
-          />
+        <Link to="/" className="flex items-center gap-3 font-bold">
+          <img src={logo} alt="44CODE — Tecnologia e Soluções" className="h-10 w-10 rounded-lg object-cover ring-1 ring-primary/40 shadow-glow" />
+          <span className="hidden sm:flex flex-col leading-tight">
+            <span className="text-gradient text-base">44CODE</span>
+            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Tecnologia e Soluções</span>
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
