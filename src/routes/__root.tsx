@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { WhatsAppButton } from "../components/WhatsAppButton";
+import { NexaChat } from "../components/NexaChat";
 import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
@@ -77,6 +78,7 @@ function RootComponent() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <NexaChat />
       <Toaster richColors position="top-right" />
     </div>
   );
