@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Globe } from "lucide-react";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -14,6 +14,14 @@ export const Route = createFileRoute("/portfolio")({
 });
 
 const projects = [
+  {
+    name: "Site institucional 44CODE",
+    tag: "Site • Enterprise",
+    desc: "Site oficial da 44CODE com identidade premium, SSR, SEO otimizado e a assistente virtual Nexa integrada — atendimento inteligente, qualificação de leads, upload de arquivos e envio automático de email.",
+    stack: ["TanStack Start", "React 19", "Tailwind v4", "Lovable Cloud", "IA"],
+    url: "https://tecnologia44code.lovable.app",
+    live: true,
+  },
   {
     name: "Água Nativa",
     tag: "SaaS • Multi-tenant",
@@ -76,7 +84,7 @@ function PortfolioPage() {
               ))}
             </div>
             <a href={p.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-glow transition-smooth">
-              <Github className="h-4 w-4" /> Ver repositório
+              {p.live ? (<><Globe className="h-4 w-4" /> Acessar site</>) : (<><Github className="h-4 w-4" /> Ver repositório</>)}
             </a>
           </article>
         ))}
