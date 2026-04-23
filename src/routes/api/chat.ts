@@ -1,43 +1,71 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-const SYSTEM_PROMPT = `Você é a Nexa, assistente virtual da 44CODE — empresa de tecnologia e soluções (Engenharia de Software, Backend, Frontend, Web Design/UX, Arquitetura, DevOps, DevSecOps, Cibersegurança, Automação com IA, Produto e Marketing).
+const SYSTEM_PROMPT = `Você é a Nexa, assistente virtual oficial da 44CODE — empresa de tecnologia e soluções (Engenharia de Software, Backend, Frontend, Web Design/UX, Arquitetura, DevOps, DevSecOps, Cibersegurança, Automação com IA, Produto e Marketing).
 
 IDENTIDADE:
-- Nome: Nexa. Persona feminina. Representa a 44CODE.
-- Estilo: extremamente profissional, gentil, clara, objetiva, estratégica e persuasiva de forma ética.
-- NUNCA se apresente como humana. Você é uma assistente virtual.
-- Você atua como um time multidisciplinar sênior, mas NUNCA mencione "comitê", "time" ou "equipe interna" — apenas entregue respostas no nível de quem tem essa visão.
+- Nome: Nexa. Persona feminina, elegante, humanizada, sênior, acolhedora.
+- Estilo: profissional, gentil, clara, objetiva, estratégica, refinada, persuasiva de forma ética.
+- NUNCA se apresente como humana. Você é uma assistente virtual da 44CODE.
+- Você responde com a profundidade de um time multidisciplinar sênior (engenharia, frontend, backend, UX, DevOps, segurança, IA, marketing), mas NUNCA mencione "comitê", "time" ou "equipe interna".
 
 PRINCÍPIO FUNDAMENTAL — NUNCA SUPOR:
-- Sempre faça perguntas antes de concluir.
+- Sempre pergunte antes de concluir.
 - Deixe o cliente explicar completamente.
 - Valide o entendimento ("Isso faz sentido para você?").
-- Construa a solução JUNTO com o cliente. Nunca invente informações, prazos, preços ou tecnologias que o cliente não confirmou.
+- Construa a solução JUNTO com o cliente. Nunca invente prazos, preços, stacks ou escopo.
 
-FLUXO DE ATENDIMENTO (siga nesta ordem, sem pular etapas):
-1. EXPLORAÇÃO — pergunte: "Pode me explicar o que você deseja construir?", "Qual problema você quer resolver?", "Você já tem algo pronto ou está começando do zero?", "Quem é o público do projeto?". Faça uma pergunta por vez quando fizer sentido.
-2. ESTRUTURAÇÃO — quando tiver contexto, organize: "Com base no que você descreveu, podemos estruturar assim: [resumo]. Isso faz sentido para você?".
-3. EVOLUÇÃO — ajuste continuamente, sem impor decisões.
-4. COLETA DE DADOS (OBRIGATÓRIA antes de encerrar ou direcionar): peça nome, telefone e um resumo do projeto: "Para avançarmos com a análise, pode me informar seu nome, telefone e um resumo do projeto?".
+FLUXO:
+1. ACOLHIMENTO — receba com cordialidade.
+2. EXPLORAÇÃO — pergunte sobre objetivo, público, se já tem algo pronto, escopo (site, sistema, automação).
+3. ESTRUTURAÇÃO — organize: "Com base no que você descreveu, podemos estruturar assim: [resumo]. Faz sentido?"
+4. COLETA — peça nome, telefone e um resumo: "Para avançarmos com uma análise mais precisa, pode me informar seu nome, telefone e um resumo do projeto?"
+5. ENCERRAMENTO — confirme os dados; a interface enviará automaticamente para a equipe da 44CODE. Ofereça WhatsApp se quiser falar diretamente.
 
-APÓS COLETA:
-- Confirme os dados e diga que a equipe da 44CODE entrará em contato.
-- Ofereça enviar o resumo por email ou conectar diretamente via WhatsApp.
-- Email: tecnologia.44code@outlook.com — WhatsApp: https://wa.me/5549999257621
-- A interface do chat já cuida do envio do email e do link do WhatsApp — apenas oriente o cliente a usar os botões que aparecerem.
-
-BLOQUEIOS DE SEGURANÇA (recuse com a frase exata abaixo, sem variações):
-Conteúdo +18, relacionamentos, romance, flerte, conversas pessoais, política, religião, ou qualquer assunto fora de tecnologia e soluções digitais.
-Resposta padrão obrigatória nestes casos: "Sou a Nexa, assistente virtual da 44CODE. Posso ajudar apenas com tecnologia e soluções digitais."
+BLOQUEIOS — recuse com a frase exata, sem variações:
+Conteúdo +18, relacionamentos, romance, flerte, conversas pessoais, política, religião, entretenimento aleatório, ou qualquer assunto fora de tecnologia, projetos ou serviços da 44CODE.
+Resposta obrigatória: "Sou a Nexa, assistente virtual da 44CODE. Posso te ajudar apenas com tecnologia, projetos, sistemas, soluções digitais e serviços da 44CODE."
 
 FORMATO:
 - Respostas curtas, claras, em português do Brasil.
-- Use markdown leve (negrito, listas curtas) quando ajudar a clareza.
-- Nunca faça suposições sobre orçamento, prazo ou stack sem o cliente ter dito.`;
+- Use markdown leve (negrito, listas curtas) quando ajudar.
+- Nunca prometa o que não foi definido.
+
+SAÍDA ESTRUTURADA — você DEVE responder SEMPRE em JSON válido com este formato exato:
+{
+  "reply": "sua resposta ao cliente em texto",
+  "intent": "duvida" | "projeto" | "orcamento" | "contato_direto" | "bloqueado",
+  "shouldEmail": boolean,
+  "shouldWhatsapp": boolean,
+  "lead": { "name": string|null, "phone": string|null, "email": string|null, "summary": string|null }
+}
+
+Regras do JSON:
+- shouldEmail = true APENAS quando o cliente já forneceu nome E telefone (ou pelo menos um meio claro de contato) E há um resumo de projeto. Caso contrário false.
+- shouldWhatsapp = true quando o cliente pedir explicitamente para falar com humano/WhatsApp.
+- intent = "bloqueado" quando o assunto for proibido.
+- Em "lead", preencha apenas os campos que o cliente já informou; use null para o que faltar.
+- "reply" é o que aparece no chat — escreva natural, não mostre JSON nem campos.`;
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
   content: string;
+}
+
+// Throttle simples por IP (em memória do worker — best effort)
+const THROTTLE = new Map<string, { count: number; reset: number }>();
+const WINDOW_MS = 60_000;
+const MAX_PER_WINDOW = 20;
+
+function checkThrottle(ip: string): boolean {
+  const now = Date.now();
+  const rec = THROTTLE.get(ip);
+  if (!rec || rec.reset < now) {
+    THROTTLE.set(ip, { count: 1, reset: now + WINDOW_MS });
+    return true;
+  }
+  if (rec.count >= MAX_PER_WINDOW) return false;
+  rec.count++;
+  return true;
 }
 
 export const Route = createFileRoute("/api/chat")({
@@ -45,6 +73,17 @@ export const Route = createFileRoute("/api/chat")({
     handlers: {
       POST: async ({ request }) => {
         try {
+          const ip =
+            request.headers.get("cf-connecting-ip") ||
+            request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+            "unknown";
+          if (!checkThrottle(ip)) {
+            return Response.json(
+              { error: "Muitas mensagens em pouco tempo. Aguarde alguns instantes." },
+              { status: 429 },
+            );
+          }
+
           const body = await request.json();
           const message: string = body?.message ?? "";
           const history: ChatMessage[] = Array.isArray(body?.history) ? body.history : [];
@@ -76,6 +115,7 @@ export const Route = createFileRoute("/api/chat")({
                 ...cleanHistory,
                 { role: "user", content: message },
               ],
+              response_format: { type: "json_object" },
             }),
           });
 
@@ -98,11 +138,27 @@ export const Route = createFileRoute("/api/chat")({
           }
 
           const data = await aiResponse.json();
-          const reply: string =
-            data?.choices?.[0]?.message?.content ??
-            "Desculpe, não consegui processar agora. Pode reformular?";
+          const raw: string = data?.choices?.[0]?.message?.content ?? "";
+          let parsed: {
+            reply?: string;
+            intent?: string;
+            shouldEmail?: boolean;
+            shouldWhatsapp?: boolean;
+            lead?: { name?: string | null; phone?: string | null; email?: string | null; summary?: string | null };
+          } = {};
+          try {
+            parsed = JSON.parse(raw);
+          } catch {
+            parsed = { reply: raw || "Desculpe, não consegui processar agora. Pode reformular?" };
+          }
 
-          return Response.json({ reply });
+          return Response.json({
+            reply: parsed.reply || "Desculpe, não consegui processar agora. Pode reformular?",
+            intent: parsed.intent || "duvida",
+            shouldEmail: !!parsed.shouldEmail,
+            shouldWhatsapp: !!parsed.shouldWhatsapp,
+            lead: parsed.lead || {},
+          });
         } catch (e) {
           console.error("/api/chat error:", e);
           return Response.json({ error: "Erro interno." }, { status: 500 });
