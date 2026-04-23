@@ -3,6 +3,7 @@ import { MessageSquare, Send, X, Mail, Phone, Loader2, Sparkles } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { NEXA_API_URL, NEXA_OFFLINE_MESSAGE } from "@/lib/nexa-config";
 
 type Role = "user" | "assistant";
 interface Msg {
@@ -92,24 +93,50 @@ export function NexaChat() {
     setInput("");
     setLoading(true);
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: trimmed,
-          history: messages.filter((m) => m.role === "user" || m.role === "assistant"),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data?.error ?? "Falha ao falar com a Nexa.");
-        setLoading(false);
-        return;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+      let data: { reply?: string; error?: string } | null = null;
+      try {
+        const res = await fetch(NEXA_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            message: trimmed,
+            history: messages
+              .filter((m) => m.role === "user" || m.role === "assistant")
+              .map((m) => ({ role: m.role, content: m.content })),
+          }),
+          signal: controller.signal,
+        });
+        try {
+          data = await res.json();
+        } catch {
+          data = null;
+        }
+        if (!res.ok) {
+          setMessages((prev) => [
+            ...prev,
+            { role: "assistant", content: data?.error || NEXA_OFFLINE_MESSAGE },
+          ]);
+          return;
+        }
+      } finally {
+        clearTimeout(timeout);
       }
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply ?? "" }]);
+      const reply = data?.reply?.trim();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: reply || NEXA_OFFLINE_MESSAGE },
+      ]);
     } catch (e) {
       console.error(e);
-      setError("Erro de conexão. Tente novamente.");
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: NEXA_OFFLINE_MESSAGE },
+      ]);
     } finally {
       setLoading(false);
     }
