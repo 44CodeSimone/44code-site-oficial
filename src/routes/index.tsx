@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Github, ShieldCheck, Cloud, Code2, Bot, Sparkles } from "lucide-react";
+import logo from "@/assets/logo-44code.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "44CodeSimone — Simone da Silva | Engenharia de Software & DevOps" },
-      { name: "description", content: "Portfólio de Simone da Silva. Análise de Sistemas, Engenharia de Software, Backend & Full Stack, DevOps, DevSecOps, Cybersecurity e Automação com IA." },
-      { property: "og:title", content: "44CodeSimone — Simone da Silva" },
-      { property: "og:description", content: "Engenharia de Software, DevOps e Cybersecurity com foco em soluções seguras e escaláveis." },
+      { title: "44CODE — Tecnologia e Soluções | Conectando desafios a soluções" },
+      { name: "description", content: "44CODE — empresa de Engenharia de Software, Backend & Full Stack, DevOps, DevSecOps, Cibersegurança e Automação com IA. Fundada por Simone da Silva." },
+      { property: "og:title", content: "44CODE — Tecnologia e Soluções" },
+      { property: "og:description", content: "Conectando desafios a soluções: software, segurança e automação com IA." },
     ],
   }),
   component: Index,
@@ -29,17 +30,21 @@ function Index() {
           <div className="grid gap-12 md:grid-cols-[1.3fr_1fr] items-center">
             <div className="animate-fade-up">
               <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-xs text-muted-foreground mb-6">
-                <Sparkles className="h-3.5 w-3.5 text-primary" /> Disponível para novos projetos
+                <Sparkles className="h-3.5 w-3.5 text-primary" /> 44CODE — disponível para novos projetos
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
-                Simone da Silva — <span className="text-gradient">Engenharia de Software</span> com segurança e IA
+                <span className="text-gradient">44CODE</span> — Tecnologia e Soluções para o seu negócio
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed">
-                Analista de Sistemas · Backend & Full Stack · DevOps & DevSecOps · Cybersecurity · Automação com IA. Construindo soluções que unem performance, segurança e inteligência.
+                Conectando desafios a soluções. Engenharia de Software, Backend & Full Stack,
+                DevOps & DevSecOps, Cibersegurança e Automação com IA — fundada e liderada por Simone da Silva.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/portfolio" className="inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth">
-                  Ver projetos <ArrowRight className="h-4 w-4" />
+                <Link to="/empresa" className="inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth">
+                  Conheça a 44CODE <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link to="/portfolio" className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-smooth">
+                  Ver projetos
                 </Link>
                 <a href="https://github.com/44CodeSimone" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-smooth">
                   <Github className="h-4 w-4" /> GitHub
@@ -59,8 +64,8 @@ function Index() {
               <div className="relative animate-float">
                 <div className="absolute -inset-6 rounded-full bg-gradient-primary opacity-30 blur-3xl" />
                 <img
-                  src="https://avatars.githubusercontent.com/u/181957349?v=4"
-                  alt="Simone da Silva — 44CodeSimone"
+                  src={logo}
+                  alt="Logo 44CODE — Tecnologia e Soluções"
                   className="relative h-56 w-56 md:h-72 md:w-72 rounded-3xl object-cover border border-border shadow-elegant"
                 />
                 <div className="absolute -bottom-4 -right-4 rounded-xl bg-card/90 backdrop-blur border border-border px-4 py-2 text-xs">
