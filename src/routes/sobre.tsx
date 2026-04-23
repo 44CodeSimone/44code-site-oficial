@@ -19,14 +19,53 @@ function SobrePage() {
       <header className="mb-16 animate-fade-up">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Sobre mim</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
-          Construindo software com <span className="text-gradient">propósito e segurança</span>
+          15+ anos construindo tecnologia com <span className="text-gradient">estratégia, segurança e propósito</span>
         </h1>
-        <p className="text-lg text-muted-foreground leading-relaxed">
-          Sou Simone da Silva, de Santa Catarina — Brasil, fundadora da <strong className="text-foreground">44CODE — Tecnologia e Soluções</strong>.
-          Atuo como Analista de Sistemas com foco em Engenharia de Software, Backend & Full Stack,
-          DevOps, DevSecOps, Cibersegurança e Automação com Inteligência Artificial. Acredito em código
-          confiável, seguro e em entregas que geram impacto real no negócio.
-        </p>
+        <div className="space-y-5 text-lg text-muted-foreground leading-relaxed">
+          <p>
+            Sou <strong className="text-foreground">Simone da Silva</strong>, Analista de Sistemas, idealizadora e fundadora
+            da <strong className="text-foreground">44CODE — Tecnologia e Soluções</strong>. São mais de{" "}
+            <strong className="text-foreground">15 anos atuando com tecnologia</strong>, conduzindo projetos de software do
+            conceito à operação em produção, com entregas consistentes, seguras e orientadas a resultado.
+          </p>
+          <p>
+            Atuo na interseção entre <strong className="text-foreground">Engenharia de Software</strong>,{" "}
+            <strong className="text-foreground">Arquitetura</strong>,{" "}
+            <strong className="text-foreground">DevOps/DevSecOps</strong> e{" "}
+            <strong className="text-foreground">Cybersecurity</strong>, projetando plataformas robustas, APIs escaláveis e
+            ambientes preparados para crescer. Trato tecnologia como instrumento de negócio: cada decisão técnica precisa
+            sustentar produto, performance, segurança e custo no longo prazo.
+          </p>
+          <p>
+            Minha experiência cobre <strong className="text-foreground">Backend e Full Stack</strong>, desenvolvimento de
+            aplicações web, <strong className="text-foreground">APIs escaláveis</strong>, plataformas{" "}
+            <strong className="text-foreground">SaaS multi-tenant</strong>, modelagem de{" "}
+            <strong className="text-foreground">banco de dados</strong>, <strong className="text-foreground">Cloud Computing</strong>,
+            pipelines de CI/CD, segurança aplicada ao ciclo de desenvolvimento e{" "}
+            <strong className="text-foreground">automação com Inteligência Artificial</strong>. Construo software pensado
+            para ser mantido, auditado e evoluído — não apenas para entrar no ar.
+          </p>
+          <p>
+            A base técnica vem da graduação em <strong className="text-foreground">Análise e Desenvolvimento de Sistemas pela UNIGRAN</strong>{" "}
+            e da formação em <strong className="text-foreground">Cibersegurança pelo programa Hackers do Bem</strong> (RNP, Softex
+            e SENAI — Ministério da Ciência, Tecnologia e Inovações). Atualmente, sigo em formação contínua nas áreas de{" "}
+            <strong className="text-foreground">DevOps</strong>, <strong className="text-foreground">DevSecOps</strong>,{" "}
+            Desenvolvimento de Aplicações Web, <strong className="text-foreground">Arquitetura de Software</strong>, Banco
+            de Dados e Cloud Computing — porque tecnologia exige evolução constante, e maturidade profissional se mantém com
+            estudo, prática e entrega real.
+          </p>
+          <p>
+            O diferencial do meu trabalho está na combinação entre <strong className="text-foreground">qualidade de engenharia</strong>,{" "}
+            <strong className="text-foreground">segurança desde a base</strong> e estrutura para crescer. Priorizo código limpo,
+            arquitetura sólida, observabilidade e processos automatizados, entregando soluções que servem ao negócio hoje e
+            sustentam a operação amanhã.
+          </p>
+          <p>
+            À frente da 44CODE, meu compromisso é claro: entregar <strong className="text-foreground">valor real</strong>, e
+            não apenas código. Projetos sérios, executados com método, segurança e visão de longo prazo — para clientes que
+            esperam tecnologia à altura do que estão construindo.
+          </p>
+        </div>
       </header>
 
       <div className="grid gap-6 md:grid-cols-3">
