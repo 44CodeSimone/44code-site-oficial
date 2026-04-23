@@ -1,7 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { WhatsAppButton } from "../components/WhatsAppButton";
 import { NexaChat } from "../components/NexaChat";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -81,7 +80,6 @@ function RootComponent() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppButton />
       <NexaChat />
       <Toaster richColors position="top-right" />
     </div>
