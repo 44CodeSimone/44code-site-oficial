@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Github, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Github, Mail, MapPin, Linkedin, Phone } from "lucide-react";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -29,10 +29,11 @@ function ContatoPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-4">
           {[
-            { icon: Mail, label: "E-mail", value: "contato@44code.com.br", href: "mailto:contato@44code.com.br" },
+            { icon: Phone, label: "WhatsApp", value: "(49) 99925-6721", href: "https://wa.me/5549999256721" },
+            { icon: Mail, label: "E-mail", value: "tecnologia.44code@outlook.com", href: "mailto:tecnologia.44code@outlook.com" },
+            { icon: Linkedin, label: "LinkedIn", value: "simone-da-silva-44code", href: "https://www.linkedin.com/in/simone-da-silva-44code" },
             { icon: Github, label: "GitHub", value: "github.com/44CodeSimone", href: "https://github.com/44CodeSimone" },
             { icon: MapPin, label: "Localização", value: "Santa Catarina — Brasil" },
-            { icon: MessageCircle, label: "Disponibilidade", value: "Projetos remotos & freelance" },
           ].map((c) => (
             <a
               key={c.label}
@@ -59,7 +60,7 @@ function ContatoPage() {
             const fd = new FormData(e.currentTarget);
             const subject = encodeURIComponent(`Contato site — ${fd.get("name")}`);
             const body = encodeURIComponent(`${fd.get("message")}\n\n— ${fd.get("name")} (${fd.get("email")})`);
-            window.location.href = `mailto:contato@44code.com.br?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:tecnologia.44code@outlook.com?subject=${subject}&body=${body}`;
           }}
         >
           <h2 className="text-lg font-semibold mb-2">Envie uma mensagem</h2>
