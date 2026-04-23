@@ -250,21 +250,21 @@ export function NexaChat() {
         onClick={() => setOpen((v) => !v)}
         aria-label="Falar com a Nexa"
         className={cn(
-          "fixed bottom-5 right-5 z-50 group inline-flex items-center gap-2 rounded-full px-4 py-3 text-primary-foreground shadow-elegant transition-smooth",
+          "fixed bottom-5 right-5 z-50 group inline-flex items-center gap-2 rounded-full px-3.5 py-2.5 text-primary-foreground shadow-elegant transition-smooth",
           "bg-gradient-to-r from-primary to-accent hover:scale-105 hover:shadow-glow",
         )}
       >
         <span className="absolute inset-0 rounded-full bg-primary opacity-40 animate-ping -z-10" />
-        <Sparkles className="h-5 w-5" />
-        <span className="hidden sm:inline text-sm font-semibold">Fale com a Nexa</span>
+        <Sparkles className="h-4 w-4" />
+        <span className="hidden sm:inline text-xs font-semibold">Fale com a Nexa</span>
       </button>
 
       {open && (
         <div
           className={cn(
             "fixed z-50 bg-card border border-border shadow-2xl flex flex-col",
-            "inset-x-2 bottom-2 top-16 rounded-2xl",
-            "sm:inset-auto sm:bottom-24 sm:right-5 sm:top-auto sm:w-[420px] sm:h-[640px] sm:rounded-2xl",
+            "inset-x-4 bottom-4 top-24 rounded-2xl",
+            "sm:inset-auto sm:bottom-20 sm:right-6 sm:top-auto sm:w-[380px] sm:h-[560px] sm:max-h-[80vh] sm:rounded-2xl",
           )}
           role="dialog"
           aria-label="Chat com a Nexa"
