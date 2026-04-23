@@ -29,7 +29,7 @@ function ContatoPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-4">
           {[
-            { icon: Mail, label: "E-mail", value: "contato@44codesimone.dev", href: "mailto:contato@44codesimone.dev" },
+            { icon: Mail, label: "E-mail", value: "contato@44code.com.br", href: "mailto:contato@44code.com.br" },
             { icon: Github, label: "GitHub", value: "github.com/44CodeSimone", href: "https://github.com/44CodeSimone" },
             { icon: MapPin, label: "Localização", value: "Santa Catarina — Brasil" },
             { icon: MessageCircle, label: "Disponibilidade", value: "Projetos remotos & freelance" },
@@ -59,7 +59,7 @@ function ContatoPage() {
             const fd = new FormData(e.currentTarget);
             const subject = encodeURIComponent(`Contato site — ${fd.get("name")}`);
             const body = encodeURIComponent(`${fd.get("message")}\n\n— ${fd.get("name")} (${fd.get("email")})`);
-            window.location.href = `mailto:contato@44codesimone.dev?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:contato@44code.com.br?subject=${subject}&body=${body}`;
           }}
         >
           <h2 className="text-lg font-semibold mb-2">Envie uma mensagem</h2>
