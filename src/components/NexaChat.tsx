@@ -1,34 +1,51 @@
-import { useEffect, useRef, useState } from "react";
-import { MessageSquare, Send, X, Mail, Phone, Loader2, Sparkles } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Send, X, Phone, Loader2, Sparkles, Paperclip, FileText, Check, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { NEXA_API_URL, NEXA_OFFLINE_MESSAGE } from "@/lib/nexa-config";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  NEXA_API_URL,
+  NEXA_LEAD_URL,
+  NEXA_OFFLINE_MESSAGE,
+  NEXA_WHATSAPP,
+  NEXA_ACCEPTED_TYPES,
+  NEXA_MAX_FILE_SIZE,
+} from "@/lib/nexa-config";
 
 type Role = "user" | "assistant";
 interface Msg {
   role: Role;
   content: string;
 }
-
-const WHATSAPP_URL = "https://wa.me/5549999257621?text=Ol%C3%A1%20Nexa!%20Vim%20pelo%20site%20da%2044CODE.";
-const EMAIL_TO = "tecnologia.44code@outlook.com";
+interface UploadedFile {
+  path: string;
+  name: string;
+  size: number;
+  mime: string;
+}
+interface Lead {
+  name?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  summary?: string | null;
+}
 
 const INITIAL_MESSAGE: Msg = {
   role: "assistant",
   content:
-    "Olá, sou a **Nexa**, assistente virtual da 44CODE. Posso te ajudar a estruturar uma solução completa para o seu projeto.\n\nPor onde podemos começar?",
+    "Olá, sou a **Nexa**, assistente virtual da 44CODE. Posso te ajudar a estruturar sua ideia, entender o seu projeto e orientar a melhor solução para o que você precisa.\n\nPor onde podemos começar?",
 };
 
 const SUGGESTIONS = [
   "Quero criar um site",
   "Preciso de um sistema",
-  "Quero automação com IA",
+  "Quero automatizar um processo",
   "Preciso de um orçamento",
+  "Tenho uma ideia de projeto",
 ];
 
 function renderContent(text: string) {
-  // very small markdown: **bold** and line breaks
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return (
     <>
@@ -50,17 +67,14 @@ function renderContent(text: string) {
   );
 }
 
-function buildMailto(messages: Msg[]) {
-  const transcript = messages
-    .map((m) => `${m.role === "user" ? "Cliente" : "Nexa"}: ${m.content}`)
-    .join("\n\n");
-  const subject = encodeURIComponent("Novo projeto - 44CODE");
-  const body = encodeURIComponent(
-    `Resumo do atendimento conduzido pela Nexa (assistente virtual da 44CODE).\n\n` +
-      `--- Transcrição ---\n\n${transcript}\n\n--- Fim ---\n\n` +
-      `Por favor, revise e entre em contato com o cliente.`,
-  );
-  return `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
+function mergeLead(prev: Lead, incoming: Lead | undefined): Lead {
+  if (!incoming) return prev;
+  return {
+    name: incoming.name || prev.name || null,
+    phone: incoming.phone || prev.phone || null,
+    email: incoming.email || prev.email || null,
+    summary: incoming.summary || prev.summary || null,
+  };
 }
 
 export function NexaChat() {
@@ -68,26 +82,65 @@ export function NexaChat() {
   const [messages, setMessages] = useState<Msg[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [uploads, setUploads] = useState<UploadedFile[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [lead, setLead] = useState<Lead>({});
+  const [leadStatus, setLeadStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const sentRef = useRef(false); // evita envio duplo
+  const sessionId = useMemo(() => crypto.randomUUID(), []);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, loading, open]);
+  }, [messages, loading, open, uploads]);
 
   useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 200);
-    }
+    if (open) setTimeout(() => inputRef.current?.focus(), 200);
   }, [open]);
+
+  async function sendLeadEmail(currentLead: Lead, intent: string, transcript: Msg[]) {
+    if (sentRef.current) return;
+    sentRef.current = true;
+    setLeadStatus("sending");
+    try {
+      const res = await fetch(NEXA_LEAD_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lead: currentLead,
+          intent,
+          transcript: transcript.map((m) => ({ role: m.role, content: m.content })),
+          uploads,
+        }),
+      });
+      if (res.ok) {
+        setLeadStatus("sent");
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              "✓ Suas informações foram **enviadas com segurança** para a equipe da 44CODE. Em breve entraremos em contato.\n\nSe preferir, você também pode falar diretamente pelo WhatsApp.",
+          },
+        ]);
+      } else {
+        sentRef.current = false; // permite retry
+        setLeadStatus("error");
+      }
+    } catch {
+      sentRef.current = false;
+      setLeadStatus("error");
+    }
+  }
 
   async function sendMessage(text: string) {
     const trimmed = text.trim();
     if (!trimmed || loading) return;
-    setError(null);
     const next: Msg[] = [...messages, { role: "user", content: trimmed }];
     setMessages(next);
     setInput("");
@@ -95,19 +148,17 @@ export function NexaChat() {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 30000);
-      let data: { reply?: string; error?: string } | null = null;
+      let data: any = null;
       try {
         const res = await fetch(NEXA_API_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify({
             message: trimmed,
             history: messages
               .filter((m) => m.role === "user" || m.role === "assistant")
               .map((m) => ({ role: m.role, content: m.content })),
+            lead,
           }),
           signal: controller.signal,
         });
@@ -126,19 +177,63 @@ export function NexaChat() {
       } finally {
         clearTimeout(timeout);
       }
-      const reply = data?.reply?.trim();
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: reply || NEXA_OFFLINE_MESSAGE },
-      ]);
+
+      const reply: string = data?.reply?.trim() || NEXA_OFFLINE_MESSAGE;
+      const finalMessages: Msg[] = [...next, { role: "assistant", content: reply }];
+      setMessages(finalMessages);
+
+      const updatedLead = mergeLead(lead, data?.lead);
+      setLead(updatedLead);
+
+      // Envio automático quando a Nexa indica que está pronto
+      if (data?.shouldEmail && !sentRef.current) {
+        await sendLeadEmail(updatedLead, data?.intent || "projeto", finalMessages);
+      }
     } catch (e) {
       console.error(e);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: NEXA_OFFLINE_MESSAGE },
-      ]);
+      setMessages((prev) => [...prev, { role: "assistant", content: NEXA_OFFLINE_MESSAGE }]);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || !files.length) return;
+    setUploadError(null);
+    setUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        if (file.size > NEXA_MAX_FILE_SIZE) {
+          setUploadError(`${file.name}: excede 25MB`);
+          continue;
+        }
+        const ext = file.name.split(".").pop() || "bin";
+        const path = `chat/${sessionId}/${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2, 8)}.${ext}`;
+        const { error } = await supabase.storage.from("nexa-uploads").upload(path, file, {
+          contentType: file.type || "application/octet-stream",
+          upsert: false,
+        });
+        if (error) {
+          setUploadError(`Falha ao enviar ${file.name}`);
+          continue;
+        }
+        setUploads((prev) => [
+          ...prev,
+          { path, name: file.name, size: file.size, mime: file.type || "application/octet-stream" },
+        ]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "user",
+            content: `📎 Enviou um arquivo: **${file.name}** (${(file.size / 1024).toFixed(0)} KB)`,
+          },
+        ]);
+      }
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
     }
   }
 
@@ -149,13 +244,13 @@ export function NexaChat() {
 
   return (
     <>
-      {/* Floating trigger button */}
+      {/* Floating trigger — agora no canto inferior direito */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="Falar com a Nexa"
         className={cn(
-          "fixed bottom-5 left-5 z-50 group inline-flex items-center gap-2 rounded-full px-4 py-3 text-primary-foreground shadow-elegant transition-smooth",
+          "fixed bottom-5 right-5 z-50 group inline-flex items-center gap-2 rounded-full px-4 py-3 text-primary-foreground shadow-elegant transition-smooth",
           "bg-gradient-to-r from-primary to-accent hover:scale-105 hover:shadow-glow",
         )}
       >
@@ -164,15 +259,12 @@ export function NexaChat() {
         <span className="hidden sm:inline text-sm font-semibold">Fale com a Nexa</span>
       </button>
 
-      {/* Panel */}
       {open && (
         <div
           className={cn(
             "fixed z-50 bg-card border border-border shadow-2xl flex flex-col",
-            // Mobile: full screen-ish bottom sheet
             "inset-x-2 bottom-2 top-16 rounded-2xl",
-            // Desktop: bottom-left panel
-            "sm:inset-auto sm:bottom-24 sm:left-5 sm:top-auto sm:w-[400px] sm:h-[600px] sm:rounded-2xl",
+            "sm:inset-auto sm:bottom-24 sm:right-5 sm:top-auto sm:w-[420px] sm:h-[640px] sm:rounded-2xl",
           )}
           role="dialog"
           aria-label="Chat com a Nexa"
@@ -205,10 +297,7 @@ export function NexaChat() {
             {messages.map((m, i) => (
               <div
                 key={i}
-                className={cn(
-                  "flex",
-                  m.role === "user" ? "justify-end" : "justify-start",
-                )}
+                className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}
               >
                 <div
                   className={cn(
@@ -230,11 +319,6 @@ export function NexaChat() {
                 </div>
               </div>
             )}
-            {error && (
-              <div className="text-xs text-destructive bg-destructive/10 border border-destructive/30 rounded-lg px-3 py-2">
-                {error}
-              </div>
-            )}
 
             {messages.length === 1 && !loading && (
               <div className="pt-2">
@@ -253,33 +337,87 @@ export function NexaChat() {
                 </div>
               </div>
             )}
+
+            {/* Lista de arquivos enviados */}
+            {uploads.length > 0 && (
+              <div className="pt-2 space-y-1">
+                {uploads.map((u) => (
+                  <div
+                    key={u.path}
+                    className="flex items-center gap-2 text-xs px-2.5 py-1.5 rounded-lg bg-muted/60 border border-border"
+                  >
+                    <FileText className="h-3.5 w-3.5 text-primary shrink-0" />
+                    <span className="truncate flex-1">{u.name}</span>
+                    <Check className="h-3.5 w-3.5 text-emerald-500" />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {uploadError && (
+              <div className="text-xs text-destructive bg-destructive/10 border border-destructive/30 rounded-lg px-3 py-2 flex items-center gap-2">
+                <AlertCircle className="h-3.5 w-3.5" />
+                {uploadError}
+              </div>
+            )}
+
+            {leadStatus === "sending" && (
+              <div className="text-xs text-muted-foreground flex items-center gap-2 px-2">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                Enviando para a equipe da 44CODE…
+              </div>
+            )}
+            {leadStatus === "error" && (
+              <div className="text-xs text-destructive bg-destructive/10 border border-destructive/30 rounded-lg px-3 py-2">
+                Não consegui enviar agora. Você pode continuar pelo WhatsApp.
+              </div>
+            )}
           </div>
 
           {/* Quick actions */}
           <div className="px-4 py-2 border-t border-border flex items-center gap-2 flex-wrap">
             <a
-              href={buildMailto(messages)}
-              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-border hover:bg-muted transition-colors"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              Enviar resumo por email
-            </a>
-            <a
-              href={WHATSAPP_URL}
+              href={NEXA_WHATSAPP}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-[#25D366] text-white hover:opacity-90 transition-opacity"
             >
               <Phone className="h-3.5 w-3.5" />
-              WhatsApp
+              Falar no WhatsApp
             </a>
+            <span className="text-[10px] text-muted-foreground ml-auto">
+              Aceita: PDF, DOC, XLS, PNG, JPG…
+            </span>
           </div>
 
-          {/* Input */}
+          {/* Input + Upload */}
           <form
             onSubmit={handleSubmit}
             className="p-3 border-t border-border flex items-center gap-2"
           >
+            <input
+              ref={fileRef}
+              type="file"
+              multiple
+              accept={NEXA_ACCEPTED_TYPES}
+              className="hidden"
+              onChange={(e) => handleFiles(e.target.files)}
+            />
+            <Button
+              type="button"
+              size="icon"
+              variant="ghost"
+              disabled={uploading}
+              onClick={() => fileRef.current?.click()}
+              aria-label="Enviar arquivo"
+              title="Anexar arquivo"
+            >
+              {uploading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Paperclip className="h-4 w-4" />
+              )}
+            </Button>
             <Input
               ref={inputRef}
               value={input}
@@ -289,12 +427,7 @@ export function NexaChat() {
               maxLength={2000}
               className="flex-1"
             />
-            <Button
-              type="submit"
-              size="icon"
-              disabled={loading || !input.trim()}
-              aria-label="Enviar"
-            >
+            <Button type="submit" size="icon" disabled={loading || !input.trim()} aria-label="Enviar">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>
