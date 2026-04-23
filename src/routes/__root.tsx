@@ -74,7 +74,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-hero">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Global tech background — applied once, covers every page */}
+      <div className="tech-bg" aria-hidden="true" />
       <Header />
       <main className="flex-1">
         <Outlet />
