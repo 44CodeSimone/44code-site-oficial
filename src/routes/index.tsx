@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Github, ShieldCheck, Cloud, Code2, Bot, Sparkles } from "lucide-react";
 import logo from "@/assets/logo-44code-wide.png";
+import { projectsCount } from "@/data/projects";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -81,7 +82,7 @@ function Index() {
       <section className="container mx-auto px-6 max-w-6xl">
         <div className="grid gap-6 sm:grid-cols-3 rounded-2xl border border-border bg-gradient-card p-8">
           {[
-            { k: "5+", v: "Projetos públicos" },
+            { k: `${projectsCount}+`, v: "Projetos públicos" },
             { k: "6+", v: "Áreas de atuação" },
             { k: "100%", v: "Foco em qualidade & segurança" },
           ].map((s) => (
