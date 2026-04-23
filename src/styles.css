@@ -187,63 +187,92 @@
 
 /* ============================================================
  * Global Tech Background — 44CODE
- * Inspirado na identidade 44CODE: preto profundo, circuitos ciano
- * nas laterais e ondas de partículas digitais ao fundo.
+ * Aplicado uma única vez no shell (root). Fixed, atrás de tudo.
+ * Camadas: base escura + grid sutil + glows (azul tech, dourado, rosé)
+ * + leve vinheta para foco no conteúdo. Sem imagens, sem JS.
  * ============================================================ */
 .tech-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  overflow: hidden;
-  background:
-    /* halo ciano central / inferior — como na referência */
-    radial-gradient(ellipse 70% 45% at 50% 95%, oklch(0.55 0.18 220 / 0.30), transparent 65%),
-    radial-gradient(ellipse 55% 40% at 15% 30%, oklch(0.45 0.15 220 / 0.18), transparent 60%),
-    radial-gradient(ellipse 55% 40% at 85% 30%, oklch(0.45 0.15 220 / 0.18), transparent 60%),
-    /* base praticamente preta com leve azul */
-    radial-gradient(ellipse at center, oklch(0.10 0.02 250) 0%, oklch(0.04 0.01 250) 100%);
+  background-color: oklch(0.13 0.02 250);
+  background-image:
+    /* glow azul tecnológico (topo-esquerda) */
+    radial-gradient(ellipse 60% 45% at 12% 8%, oklch(0.78 0.16 220 / 0.18), transparent 60%),
+    /* glow dourado (direita-meio) */
+    radial-gradient(ellipse 45% 40% at 92% 38%, oklch(0.82 0.14 85 / 0.12), transparent 65%),
+    /* glow rosé (baixo-esquerda) */
+    radial-gradient(ellipse 55% 45% at 18% 92%, oklch(0.75 0.12 15 / 0.13), transparent 65%),
+    /* glow accent roxo discreto (baixo-direita) */
+    radial-gradient(ellipse 50% 40% at 88% 95%, oklch(0.55 0.18 285 / 0.12), transparent 65%),
+    /* grid fino vertical */
+    linear-gradient(to right, oklch(0.95 0.02 240 / 0.04) 1px, transparent 1px),
+    /* grid fino horizontal */
+    linear-gradient(to bottom, oklch(0.95 0.02 240 / 0.04) 1px, transparent 1px),
+    /* base radial profundidade */
+    radial-gradient(ellipse at center, oklch(0.18 0.025 255) 0%, oklch(0.11 0.02 250) 100%);
+  background-size:
+    auto, auto, auto, auto,
+    56px 56px,
+    56px 56px,
+    auto;
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, 0 0, 0 0, center;
 }
 
-.tech-bg__svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Vinheta para legibilidade */
+/* Camada superior: vinheta + linha de varredura sutil para sensação tech */
 .tech-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 45%, oklch(0.02 0.005 250 / 0.75) 100%);
+  background:
+    /* vinheta para legibilidade */
+    radial-gradient(ellipse at center, transparent 55%, oklch(0.08 0.015 250 / 0.55) 100%),
+    /* scanlines horizontais discretas */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      oklch(1 0 0 / 0.012) 3px,
+      oklch(1 0 0 / 0.012) 4px
+    );
   pointer-events: none;
 }
 
-/* Animações */
-@keyframes wave-drift-1 { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(-1.5%,-1%,0)} }
-@keyframes wave-drift-2 { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(1.5%,1%,0)} }
-@keyframes particle-pulse {
-  0%, 100% { opacity: 0.4; }
-  50%      { opacity: 1; }
-}
-@keyframes circuit-flow {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -120; }
-}
-@keyframes star-twinkle {
-  0%, 100% { opacity: 0.2; }
-  50%      { opacity: 0.9; }
+/* Partículas leves animadas (somente desktop, respeita reduced-motion) */
+.tech-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, oklch(0.85 0.14 220 / 0.5) 0, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, oklch(0.85 0.14 85 / 0.4) 0, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, oklch(0.85 0.14 15 / 0.4) 0, transparent 1.5px),
+    radial-gradient(circle at 85% 20%, oklch(0.85 0.14 220 / 0.45) 0, transparent 1.5px),
+    radial-gradient(circle at 55% 45%, oklch(0.85 0.14 85 / 0.35) 0, transparent 1.5px),
+    radial-gradient(circle at 10% 65%, oklch(0.85 0.14 285 / 0.35) 0, transparent 1.5px);
+  background-size: 100% 100%;
+  opacity: 0.7;
+  animation: tech-drift 22s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-.wave-1 { animation: wave-drift-1 18s ease-in-out infinite; transform-origin: center; }
-.wave-2 { animation: wave-drift-2 22s ease-in-out infinite; transform-origin: center; }
-.particle { animation: particle-pulse 4s ease-in-out infinite; }
-.circuit { animation: circuit-flow 8s linear infinite; }
-.star { animation: star-twinkle 5s ease-in-out infinite; }
+@keyframes tech-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -12px, 0); }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .wave-1, .wave-2, .particle, .circuit, .star { animation: none; }
+  .tech-bg::before { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .tech-bg {
+    background-size:
+      auto, auto, auto, auto,
+      40px 40px,
+      40px 40px,
+      auto;
+  }
 }
