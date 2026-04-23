@@ -84,127 +84,155 @@ function RootComponent() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="wave-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="oklch(0.78 0.16 220)" stopOpacity="0" />
-              <stop offset="50%" stopColor="oklch(0.78 0.16 220)" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="oklch(0.78 0.16 220)" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="wave-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="oklch(0.85 0.14 200)" stopOpacity="0" />
-              <stop offset="50%" stopColor="oklch(0.85 0.14 200)" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="oklch(0.85 0.14 200)" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="wave-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="oklch(0.7 0.18 240)" stopOpacity="0" />
-              <stop offset="50%" stopColor="oklch(0.7 0.18 240)" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="oklch(0.7 0.18 240)" stopOpacity="0" />
-            </linearGradient>
             <radialGradient id="particle-glow">
-              <stop offset="0%" stopColor="oklch(0.95 0.12 200)" stopOpacity="1" />
-              <stop offset="100%" stopColor="oklch(0.85 0.14 220)" stopOpacity="0" />
+              <stop offset="0%" stopColor="oklch(0.95 0.12 210)" stopOpacity="1" />
+              <stop offset="100%" stopColor="oklch(0.78 0.16 220)" stopOpacity="0" />
             </radialGradient>
-            <filter id="soft-blur" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="1.2" />
+            <linearGradient id="wave-grad" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stopColor="oklch(0.78 0.16 220)" stopOpacity="0" />
+              <stop offset="60%" stopColor="oklch(0.78 0.16 220)" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="oklch(0.6 0.18 230)" stopOpacity="0.85" />
+            </linearGradient>
+            <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.5" />
             </filter>
+
+            {/* Circuito reutilizável — lado esquerdo */}
+            <symbol id="circuit-left" viewBox="0 0 360 900">
+              <g
+                stroke="oklch(0.78 0.16 215)"
+                strokeOpacity="0.55"
+                strokeWidth="1.2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M0,120 L90,120 L120,150 L200,150 L230,180 L300,180" />
+                <path d="M0,200 L70,200 L100,170 L180,170" />
+                <path d="M0,280 L60,280 L90,310 L160,310 L190,280 L260,280 L290,310 L340,310" />
+                <path d="M0,380 L80,380 L110,350 L210,350" />
+                <path d="M0,460 L100,460 L130,490 L240,490 L270,460 L320,460" />
+                <path d="M0,560 L70,560 L100,590 L180,590" />
+                <path d="M0,640 L60,640 L90,610 L150,610 L180,640 L260,640 L290,670 L340,670" />
+                <path d="M0,740 L80,740 L110,710 L200,710" />
+                <path d="M0,820 L90,820 L120,790 L210,790 L240,820 L300,820" />
+              </g>
+              {/* Nós do circuito */}
+              <g fill="oklch(0.85 0.14 210)">
+                {[
+                  [120, 150], [230, 180], [300, 180],
+                  [100, 170], [180, 170],
+                  [90, 310], [190, 280], [290, 310], [340, 310],
+                  [110, 350], [210, 350],
+                  [130, 490], [270, 460], [320, 460],
+                  [100, 590], [180, 590],
+                  [90, 610], [180, 640], [290, 670], [340, 670],
+                  [110, 710], [200, 710],
+                  [120, 790], [240, 820], [300, 820],
+                ].map(([cx, cy], i) => (
+                  <circle key={i} cx={cx} cy={cy} r={2.2} />
+                ))}
+              </g>
+            </symbol>
           </defs>
 
-          {/* Camadas de ondas digitais — curvas orgânicas, sem grid */}
-          <g className="wave-1" filter="url(#soft-blur)">
-            <path
-              d="M0,520 C240,420 420,640 720,520 C1020,400 1200,640 1440,500 L1440,900 L0,900 Z"
-              fill="url(#wave-grad-1)"
-              opacity="0.35"
-            />
-            <path
-              d="M0,520 C240,420 420,640 720,520 C1020,400 1200,640 1440,500"
-              stroke="oklch(0.85 0.14 210)"
-              strokeOpacity="0.35"
-              strokeWidth="1.2"
-              fill="none"
+          {/* === CIRCUITOS LATERAIS (esquerda + espelhado à direita) === */}
+          <g filter="url(#soft-glow)" opacity="0.85">
+            <use href="#circuit-left" x="0" y="0" width="360" height="900" />
+            <use
+              href="#circuit-left"
+              x="0"
+              y="0"
+              width="360"
+              height="900"
+              transform="translate(1440 0) scale(-1 1)"
             />
           </g>
 
-          <g className="wave-2" filter="url(#soft-blur)">
-            <path
-              d="M0,640 C260,560 460,760 760,640 C1040,540 1240,740 1440,620 L1440,900 L0,900 Z"
-              fill="url(#wave-grad-2)"
-              opacity="0.30"
-            />
-            <path
-              d="M0,640 C260,560 460,760 760,640 C1040,540 1240,740 1440,620"
-              stroke="oklch(0.85 0.14 200)"
-              strokeOpacity="0.28"
-              strokeWidth="1"
-              fill="none"
-            />
+          {/* === ESTRELAS / POEIRA DIGITAL === */}
+          <g fill="oklch(0.95 0.05 220)">
+            {Array.from({ length: 70 }).map((_, i) => {
+              const seed = i * 9301 + 49297;
+              const x = (seed % 1440);
+              const y = ((seed * 7) % 900);
+              const r = ((i % 3) + 0.4) * 0.6;
+              return (
+                <circle
+                  key={`s-${i}`}
+                  className="star"
+                  cx={x}
+                  cy={y}
+                  r={r}
+                  style={{ animationDelay: `${(i % 8) * 0.4}s` }}
+                />
+              );
+            })}
           </g>
 
-          <g className="wave-3" filter="url(#soft-blur)">
-            <path
-              d="M0,360 C300,280 500,460 800,360 C1080,260 1260,440 1440,340"
-              stroke="oklch(0.78 0.16 230)"
-              strokeOpacity="0.25"
-              strokeWidth="1"
-              fill="none"
-            />
-            <path
-              d="M0,200 C320,140 520,300 820,210 C1100,130 1280,280 1440,200"
-              stroke="oklch(0.85 0.14 210)"
-              strokeOpacity="0.18"
-              strokeWidth="0.8"
-              fill="none"
-            />
+          {/* === ONDAS DE PARTÍCULAS DIGITAIS (parte inferior) === */}
+          <g className="wave-1" opacity="0.85">
+            {Array.from({ length: 90 }).map((_, i) => {
+              const x = (i / 89) * 1440;
+              // curva senoidal suave para criar a forma de onda
+              const baseY = 760;
+              const amp = 70;
+              const y = baseY - Math.sin((i / 89) * Math.PI * 2) * amp - Math.sin((i / 89) * Math.PI) * 30;
+              const r = 1 + ((i % 5) * 0.25);
+              return (
+                <circle
+                  key={`w1-${i}`}
+                  className="particle"
+                  cx={x}
+                  cy={y}
+                  r={r}
+                  fill="oklch(0.85 0.14 215)"
+                  style={{ animationDelay: `${(i % 10) * 0.25}s` }}
+                />
+              );
+            })}
           </g>
 
-          {/* Conexões finas entre partículas (rede neural / fluxo de dados) */}
-          <g
-            stroke="oklch(0.85 0.14 210)"
-            strokeOpacity="0.22"
-            strokeWidth="0.6"
-            fill="none"
-            strokeDasharray="3 5"
-          >
-            <line className="connector" x1="180" y1="180" x2="420" y2="260" />
-            <line className="connector" x1="420" y1="260" x2="640" y2="160" />
-            <line className="connector" x1="640" y1="160" x2="900" y2="280" />
-            <line className="connector" x1="900" y1="280" x2="1180" y2="200" />
-            <line className="connector" x1="180" y1="180" x2="320" y2="420" />
-            <line className="connector" x1="320" y1="420" x2="560" y2="500" />
-            <line className="connector" x1="560" y1="500" x2="780" y2="420" />
-            <line className="connector" x1="780" y1="420" x2="1040" y2="500" />
-            <line className="connector" x1="1040" y1="500" x2="1280" y2="380" />
-            <line className="connector" x1="220" y1="700" x2="480" y2="780" />
-            <line className="connector" x1="480" y1="780" x2="760" y2="700" />
-            <line className="connector" x1="760" y1="700" x2="1020" y2="780" />
-            <line className="connector" x1="1020" y1="780" x2="1280" y2="700" />
+          <g className="wave-2" opacity="0.7">
+            {Array.from({ length: 110 }).map((_, i) => {
+              const x = (i / 109) * 1440;
+              const baseY = 820;
+              const amp = 50;
+              const y = baseY - Math.sin((i / 109) * Math.PI * 3 + 1) * amp - Math.sin((i / 109) * Math.PI) * 20;
+              const r = 0.8 + ((i % 4) * 0.2);
+              return (
+                <circle
+                  key={`w2-${i}`}
+                  cx={x}
+                  cy={y}
+                  r={r}
+                  fill="oklch(0.78 0.16 220)"
+                  opacity={0.85}
+                />
+              );
+            })}
           </g>
 
-          {/* Partículas luminosas */}
+          {/* Linha horizontal central de luz (como na referência) */}
+          <line
+            x1="320"
+            y1="700"
+            x2="1120"
+            y2="700"
+            stroke="oklch(0.9 0.12 215)"
+            strokeOpacity="0.35"
+            strokeWidth="1"
+          />
+
+          {/* Halos / partículas grandes brilhantes */}
           <g fill="url(#particle-glow)">
             {[
-              [180, 180, 6], [420, 260, 5], [640, 160, 7], [900, 280, 5], [1180, 200, 6],
-              [320, 420, 5], [560, 500, 7], [780, 420, 5], [1040, 500, 6], [1280, 380, 5],
-              [220, 700, 6], [480, 780, 5], [760, 700, 6], [1020, 780, 5], [1280, 700, 6],
+              [180, 240, 18],
+              [1260, 240, 18],
+              [200, 680, 22],
+              [1240, 680, 22],
+              [720, 760, 30],
             ].map(([cx, cy, r], i) => (
-              <circle
-                key={i}
-                className="particle"
-                cx={cx}
-                cy={cy}
-                r={r}
-                style={{ animationDelay: `${(i % 6) * 0.6}s` }}
-              />
-            ))}
-          </g>
-
-          {/* Núcleos sólidos das partículas */}
-          <g fill="oklch(0.95 0.08 200)">
-            {[
-              [180, 180], [420, 260], [640, 160], [900, 280], [1180, 200],
-              [320, 420], [560, 500], [780, 420], [1040, 500], [1280, 380],
-              [220, 700], [480, 780], [760, 700], [1020, 780], [1280, 700],
-            ].map(([cx, cy], i) => (
-              <circle key={`c-${i}`} cx={cx} cy={cy} r={1.4} opacity={0.85} />
+              <circle key={`g-${i}`} cx={cx} cy={cy} r={r} opacity="0.7" />
             ))}
           </g>
         </svg>
