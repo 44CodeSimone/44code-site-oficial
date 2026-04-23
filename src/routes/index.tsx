@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Github, ShieldCheck, Cloud, Code2, Bot, Sparkles } from "lucide-react";
-import logo from "@/assets/logo-44code.png";
+import logo from "@/assets/logo-44code-wide.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,12 +61,12 @@ function Index() {
             </div>
 
             <div className="relative flex justify-center md:justify-end">
-              <div className="relative animate-float">
-                <div className="absolute -inset-6 rounded-full bg-gradient-primary opacity-30 blur-3xl" />
+              <div className="relative animate-float w-full max-w-md md:max-w-none">
+                <div className="absolute -inset-6 rounded-3xl bg-gradient-primary opacity-30 blur-3xl" />
                 <img
                   src={logo}
                   alt="Logo 44CODE — Tecnologia e Soluções"
-                  className="relative h-56 w-56 md:h-72 md:w-72 rounded-3xl object-cover border border-border shadow-elegant"
+                  className="relative w-full h-auto aspect-[3/2] rounded-3xl object-cover border border-border shadow-elegant"
                 />
                 <div className="absolute -bottom-4 -right-4 rounded-xl bg-card/90 backdrop-blur border border-border px-4 py-2 text-xs">
                   <span className="text-muted-foreground">Santa Catarina · </span><span className="text-primary">BR</span>
