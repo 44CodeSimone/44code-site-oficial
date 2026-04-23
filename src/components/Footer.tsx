@@ -1,4 +1,4 @@
-import { Github, Mail, MapPin } from "lucide-react";
+import { Github, Mail, MapPin, Linkedin, Phone } from "lucide-react";
 import logo from "@/assets/logo-44code.png";
 
 export function Footer() {
@@ -22,13 +22,21 @@ export function Footer() {
             <MapPin className="h-4 w-4 text-primary" />
             <span>Santa Catarina — Brasil</span>
           </div>
+          <a href="https://wa.me/5549999256721" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-foreground transition-smooth">
+            <Phone className="h-4 w-4 text-primary" />
+            <span>(49) 99925-6721</span>
+          </a>
+          <a href="mailto:tecnologia.44code@outlook.com" className="flex items-center gap-2 hover:text-foreground transition-smooth">
+            <Mail className="h-4 w-4 text-primary" />
+            <span>tecnologia.44code@outlook.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/simone-da-silva-44code" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-foreground transition-smooth">
+            <Linkedin className="h-4 w-4 text-primary" />
+            <span>linkedin.com/in/simone-da-silva-44code</span>
+          </a>
           <a href="https://github.com/44CodeSimone" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-foreground transition-smooth">
             <Github className="h-4 w-4 text-primary" />
             <span>github.com/44CodeSimone</span>
-          </a>
-          <a href="mailto:contato@44code.com.br" className="flex items-center gap-2 hover:text-foreground transition-smooth">
-            <Mail className="h-4 w-4 text-primary" />
-            <span>contato@44code.com.br</span>
           </a>
         </div>
         <div className="text-muted-foreground md:text-right">
