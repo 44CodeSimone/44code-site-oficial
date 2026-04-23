@@ -1,4 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 import appCss from "../styles.css?url";
 
@@ -29,11 +31,11 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "44CodeSimone — Simone da Silva | Engenharia de Software & DevOps" },
+      { name: "description", content: "Portfólio de Simone da Silva: Análise de Sistemas, Engenharia de Software, Backend & Full Stack, DevOps, DevSecOps, Cybersecurity e Automação com IA." },
+      { name: "author", content: "Simone da Silva" },
+      { property: "og:title", content: "44CodeSimone — Simone da Silva" },
+      { property: "og:description", content: "Engenharia de Software, DevOps, DevSecOps e Cybersecurity." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -65,5 +67,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <div className="min-h-screen flex flex-col bg-gradient-hero">
+      <Header />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
 }
