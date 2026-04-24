@@ -6,7 +6,7 @@ import logo from "@/assets/logo-44code.png";
 const links = [
   { to: "/", label: "Início" },
   { to: "/empresa", label: "Empresa" },
-  { to: "/sobre", label: "Sobre" },
+  { to: "/sobre", label: "Quem Somos" },
   { to: "/servicos", label: "Serviços" },
   { to: "/portfolio", label: "Portfólio" },
   { to: "/contato", label: "Contato" },
