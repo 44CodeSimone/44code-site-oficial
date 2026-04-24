@@ -139,6 +139,19 @@ export const Route = createFileRoute("/api/send-lead")({
                 .join("")}</ul>`
             : "";
 
+          // === Link WhatsApp (wa.me) ===
+          const digits = phone.replace(/\D/g, "");
+          let waDigits = "";
+          if (digits.length >= 10) {
+            waDigits = digits.startsWith("55") ? digits : `55${digits}`;
+          }
+          const waGreeting = name ? `Olá ${name}` : "Olá";
+          const waText = encodeURIComponent(`${waGreeting}, vi seu pedido no site da 44CODE`);
+          const waHtml = waDigits
+            ? `<h2 style="color:#111827;margin-top:24px">Ações rápidas</h2>
+<p style="margin:8px 0"><a href="https://wa.me/${waDigits}?text=${waText}" style="display:inline-block;padding:10px 18px;background:#25D366;color:#ffffff;text-decoration:none;border-radius:6px;font-weight:600">👉 Chamar no WhatsApp</a></p>`
+            : "";
+
           const html = `<!DOCTYPE html><html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:680px;margin:0 auto;padding:24px;color:#111827">
 <h1 style="color:#111827;border-bottom:2px solid #3b82f6;padding-bottom:12px">Novo contato / projeto — 44CODE</h1>
 <p style="color:#6b7280">Atendimento conduzido pela <strong>Nexa</strong> (assistente virtual).</p>
@@ -150,6 +163,8 @@ export const Route = createFileRoute("/api/send-lead")({
   <tr><td style="padding:6px 0;color:#6b7280">Email</td><td style="padding:6px 0"><strong>${escapeHtml(email) || "—"}</strong></td></tr>
   <tr><td style="padding:6px 0;color:#6b7280">Intenção</td><td style="padding:6px 0">${escapeHtml(body?.intent || "—")}</td></tr>
 </table>
+
+${waHtml}
 
 <h2 style="color:#111827;margin-top:24px">Resumo do projeto</h2>
 <div style="padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap">${escapeHtml(summary) || "<em>Não informado</em>"}</div>
