@@ -272,8 +272,21 @@ export function NexaChat() {
           {/* Header */}
           <div className="flex items-center justify-between gap-3 p-4 border-b border-border bg-gradient-to-r from-primary/10 to-accent/10 rounded-t-2xl">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
+              <div
+                className={cn(
+                  "relative h-10 w-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0",
+                  loading && "animate-nexa-pulse",
+                )}
+              >
+                {loading && (
+                  <span className="absolute inset-0 rounded-full bg-primary/40 animate-ping" />
+                )}
+                <Sparkles
+                  className={cn(
+                    "h-5 w-5 text-primary-foreground transition-transform",
+                    loading && "animate-nexa-spark",
+                  )}
+                />
               </div>
               <div className="min-w-0">
                 <p className="font-semibold text-foreground truncate">Nexa</p>

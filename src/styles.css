@@ -185,6 +185,32 @@
 }
 .animate-fade-up { animation: fade-up 0.7s ease-out both; }
 
+/* Animação do logo da Nexa enquanto está "pensando/escrevendo" */
+@keyframes nexa-spark {
+  0%   { transform: rotate(0deg) scale(1); }
+  25%  { transform: rotate(-12deg) scale(1.15); }
+  50%  { transform: rotate(0deg) scale(1.05); }
+  75%  { transform: rotate(12deg) scale(1.15); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.animate-nexa-spark {
+  animation: nexa-spark 1.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes nexa-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.78 0.16 200 / 0.5); }
+  50%      { box-shadow: 0 0 0 6px oklch(0.78 0.16 200 / 0); }
+}
+.animate-nexa-pulse {
+  animation: nexa-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-nexa-spark,
+  .animate-nexa-pulse { animation: none; }
+}
+
 /* ============================================================
  * Global Tech Background — 44CODE
  * Aplicado uma única vez no shell (root). Fixed, atrás de tudo.
