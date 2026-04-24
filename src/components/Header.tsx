@@ -18,7 +18,10 @@ export function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 font-bold">
-          <img src={logo} alt="44CODE — Tecnologia e Soluções" className="h-10 w-10 rounded-lg object-cover ring-1 ring-primary/40 shadow-glow" />
+          <span className="relative inline-flex animate-float">
+            <span className="absolute -inset-1.5 rounded-xl bg-gradient-primary opacity-30 blur-md" />
+            <img src={logo} alt="44CODE — Tecnologia e Soluções" className="relative h-10 w-10 rounded-lg object-cover border border-border ring-1 ring-primary/40 shadow-glow" />
+          </span>
           <span className="hidden sm:flex flex-col leading-tight">
             <span className="text-gradient text-base">44CODE</span>
             <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Tecnologia e Soluções</span>

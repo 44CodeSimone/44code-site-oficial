@@ -36,8 +36,8 @@ function EmpresaPage() {
             Inteligência Artificial.
           </p>
         </div>
-        <div className="relative mx-auto md:mx-0 w-full max-w-sm">
-          <div className="absolute -inset-6 rounded-full bg-gradient-primary opacity-25 blur-3xl" />
+        <div className="relative mx-auto md:mx-0 w-full max-w-sm animate-float">
+          <div className="absolute -inset-6 rounded-3xl bg-gradient-primary opacity-30 blur-3xl" />
           <img
             src={logo}
             alt="Logo 44CODE Tecnologia e Soluções"

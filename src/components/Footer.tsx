@@ -7,7 +7,10 @@ export function Footer() {
       <div className="container mx-auto px-6 py-10 grid gap-6 md:grid-cols-3 text-sm">
         <div>
           <div className="flex items-center gap-3 mb-3">
-            <img src={logo} alt="44CODE" className="h-9 w-9 rounded-md object-cover ring-1 ring-primary/40" />
+            <span className="relative inline-flex animate-float">
+              <span className="absolute -inset-1.5 rounded-xl bg-gradient-primary opacity-30 blur-md" />
+              <img src={logo} alt="44CODE" className="relative h-9 w-9 rounded-md object-cover border border-border ring-1 ring-primary/40 shadow-glow" />
+            </span>
             <div className="leading-tight">
               <div className="font-bold text-gradient">44CODE</div>
               <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Tecnologia e Soluções</div>
