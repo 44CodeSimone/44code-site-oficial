@@ -82,8 +82,8 @@ function Index() {
       <section className="container mx-auto px-6 max-w-6xl">
         <div className="grid gap-6 sm:grid-cols-3 rounded-2xl border border-border bg-gradient-card p-8">
           {[
-            { k: `${projectsCount}+`, v: "Projetos públicos" },
-            { k: "6+", v: "Áreas de atuação" },
+            { k: "10+", v: "Projetos públicos" },
+            { k: "10+", v: "Áreas de atuação" },
             { k: "100%", v: "Foco em qualidade & segurança" },
           ].map((s) => (
             <div key={s.v} className="text-center">
