@@ -211,6 +211,10 @@ ${transcriptHtml || "<p><em>Sem transcrição</em></p>"}
             );
           }
 
+          console.log(
+            `[send-lead] OK → to=${TO_EMAIL} | name=${name || "—"} | phone=${phone || "—"} | email=${email || "—"} | attachments=${attachments.length} | links=${signedLinks.length} | at=${new Date().toISOString()}`,
+          );
+
           return Response.json({ ok: true });
         } catch (e) {
           console.error("/api/send-lead error:", e);
