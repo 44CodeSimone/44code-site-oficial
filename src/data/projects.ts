@@ -16,8 +16,7 @@ export const projects: Project[] = [
     tag: "Site • Enterprise",
     desc: "Site oficial da 44CODE com identidade premium, SSR, SEO otimizado e a assistente virtual Nexa integrada — atendimento inteligente, qualificação de leads, upload de arquivos e envio automático de email.",
     stack: ["TanStack Start", "React 19", "Tailwind v4", "Lovable Cloud", "IA"],
-    url: "https://tecnologia44code.lovable.app",
-    live: true,
+    url: "https://github.com/44CodeSimone/44code-site-oficial",
   },
   {
     name: "Água Nativa",

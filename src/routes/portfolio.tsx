@@ -21,7 +21,7 @@ function PortfolioPage() {
       <header className="mb-14 text-center animate-fade-up">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Portfólio</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Projetos em <span className="text-gradient">produção</span>
+          <span className="text-gradient">Projetos</span>
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Uma seleção de projetos desenvolvidos com foco em arquitetura, segurança e escalabilidade.
@@ -30,7 +30,7 @@ function PortfolioPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {projects.map((p) => (
-          <article key={p.name} className="rounded-2xl border border-border bg-gradient-card p-7 transition-smooth hover:border-primary/60 hover:shadow-elegant group">
+          <article key={p.name} className="rounded-2xl border border-border bg-gradient-card p-7 transition-smooth hover:border-primary/60 hover:shadow-elegant group active:scale-[0.97] active:shadow-glow active:border-primary/70 touch-manipulation">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <p className="text-xs uppercase tracking-wider text-primary font-medium mb-2">{p.tag}</p>
