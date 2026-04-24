@@ -1,5 +1,5 @@
 import { Github, Mail, MapPin, Linkedin, Phone } from "lucide-react";
-import logo from "@/assets/logo-44code.png";
+import logo from "@/assets/logo-44code-wide.png";
 
 export function Footer() {
   return (
@@ -9,7 +9,7 @@ export function Footer() {
           <div className="flex items-center gap-3 mb-3">
             <span className="relative inline-flex animate-float">
               <span className="absolute -inset-1.5 rounded-xl bg-gradient-primary opacity-30 blur-md" />
-              <img src={logo} alt="44CODE" className="relative h-9 w-9 rounded-md object-cover border border-border ring-1 ring-primary/40 shadow-glow" />
+              <img src={logo} alt="44CODE" className="relative h-9 w-[54px] aspect-[3/2] rounded-md object-cover border border-border ring-1 ring-primary/40 shadow-glow" />
             </span>
             <div className="leading-tight">
               <div className="font-bold text-gradient">44CODE</div>

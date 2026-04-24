@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, Target, Lightbulb, Handshake, ArrowRight } from "lucide-react";
-import logo from "@/assets/logo-44code.png";
+import logo from "@/assets/logo-44code-wide.png";
 
 export const Route = createFileRoute("/empresa")({
   head: () => ({
@@ -36,12 +36,12 @@ function EmpresaPage() {
             Inteligência Artificial.
           </p>
         </div>
-        <div className="relative mx-auto md:mx-0 w-full max-w-sm animate-float">
+        <div className="relative mx-auto md:mx-0 w-full max-w-md animate-float">
           <div className="absolute -inset-6 rounded-3xl bg-gradient-primary opacity-30 blur-3xl" />
           <img
             src={logo}
             alt="Logo 44CODE Tecnologia e Soluções"
-            className="relative w-full h-auto aspect-square rounded-2xl object-cover border border-border shadow-elegant"
+            className="relative w-full h-auto aspect-[3/2] rounded-3xl object-cover border border-border shadow-elegant"
           />
         </div>
       </header>

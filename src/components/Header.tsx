@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Github, Menu, X } from "lucide-react";
 import { useState } from "react";
-import logo from "@/assets/logo-44code.png";
+import logo from "@/assets/logo-44code-wide.png";
 
 const links = [
   { to: "/", label: "Início" },
@@ -20,7 +20,7 @@ export function Header() {
         <Link to="/" className="flex items-center gap-3 font-bold">
           <span className="relative inline-flex animate-float">
             <span className="absolute -inset-1.5 rounded-xl bg-gradient-primary opacity-30 blur-md" />
-            <img src={logo} alt="44CODE — Tecnologia e Soluções" className="relative h-10 w-10 rounded-lg object-cover border border-border ring-1 ring-primary/40 shadow-glow" />
+            <img src={logo} alt="44CODE — Tecnologia e Soluções" className="relative h-10 w-[60px] aspect-[3/2] rounded-lg object-cover border border-border ring-1 ring-primary/40 shadow-glow" />
           </span>
           <span className="hidden sm:flex flex-col leading-tight">
             <span className="text-gradient text-base">44CODE</span>
