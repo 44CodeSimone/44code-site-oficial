@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Github, ExternalLink, Globe } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Github, ExternalLink, Globe, ShieldCheck, ArrowRight } from "lucide-react";
 import { projects } from "@/data/projects";
 
 export const Route = createFileRoute("/portfolio")({
@@ -57,6 +58,55 @@ function PortfolioPage() {
           <Github className="h-4 w-4" /> Ver todos os repositórios no GitHub
         </a>
       </div>
+
+      {/* QUEM ESTÁ POR TRÁS DA 44CODE */}
+      <section className="mt-24 rounded-2xl border border-border bg-gradient-card p-8 md:p-12 animate-fade-up">
+        <div className="flex items-center gap-3 mb-6">
+          <ShieldCheck className="h-7 w-7 text-primary" />
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Quem está por trás da <span className="text-gradient">44CODE</span>
+          </h2>
+        </div>
+        <div className="space-y-5 text-muted-foreground leading-relaxed text-base md:text-lg max-w-3xl">
+          <p>
+            <strong className="text-foreground">Simone da Silva</strong> é Analista de Sistemas, idealizadora e fundadora da 44CODE.
+          </p>
+          <p>
+            Com mais de <strong className="text-foreground">15 anos de experiência em tecnologia</strong>, atua na criação de sistemas, plataformas e soluções digitais que vão além do funcionamento básico — são pensadas para serem seguras, organizadas e preparadas para crescer.
+          </p>
+          <p>
+            Sua atuação conecta engenharia de software, arquitetura de sistemas, backend, full stack, DevOps, DevSecOps e cibersegurança, sempre com foco em entregar soluções consistentes, confiáveis e alinhadas à realidade de quem utiliza.
+          </p>
+          <p>
+            Ao longo da sua trajetória, desenvolveu projetos completos — desde a ideia até a operação — incluindo plataformas SaaS, APIs escaláveis, sistemas web e soluções com Inteligência Artificial.
+          </p>
+          <p>
+            É graduada em <strong className="text-foreground">Análise e Desenvolvimento de Sistemas pela UNIGRAN</strong> e possui formação em cibersegurança pelo programa <strong className="text-foreground">Hackers do Bem (RNP, Softex e SENAI)</strong>, além de manter atualização contínua nas áreas de DevOps, DevSecOps, desenvolvimento de aplicações web, arquitetura de software, banco de dados e computação em nuvem (cloud computing).
+          </p>
+          <p>
+            Também possui experiência prática em ambientes reais, incluindo sistemas de gestão e integração de dados, com foco em organização, confiabilidade e continuidade operacional.
+          </p>
+          <p className="text-foreground font-medium">
+            Seu trabalho é guiado por um princípio simples: <span className="text-gradient">tecnologia precisa funcionar bem, ser segura e fazer sentido para quem usa</span>.
+          </p>
+        </div>
+      </section>
+
+      {/* BLOCO DE REFORÇO */}
+      <section className="mt-12 text-center max-w-3xl mx-auto">
+        <p className="text-lg md:text-xl text-foreground leading-relaxed mb-3">
+          Cada projeto apresentado aqui não é apenas um sistema entregue.
+        </p>
+        <p className="text-muted-foreground leading-relaxed mb-8">
+          É resultado de um processo pensado, estruturado e executado com <strong className="text-foreground">responsabilidade técnica</strong>, <strong className="text-foreground">visão de negócio</strong> e <strong className="text-foreground">foco no longo prazo</strong>.
+        </p>
+        <Link
+          to="/contato"
+          className="inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth"
+        >
+          Conversar com a 44CODE <ArrowRight className="h-4 w-4" />
+        </Link>
+      </section>
     </div>
   );
 }
