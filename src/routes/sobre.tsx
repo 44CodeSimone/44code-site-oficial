@@ -17,10 +17,10 @@ import {
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
-      { title: "Quem Somos — 44CODE | Tecnologia e Soluções" },
-      { name: "description", content: "A 44CODE desenvolve sistemas, sites e soluções digitais sob medida — com segurança, qualidade e visão de crescimento." },
-      { property: "og:title", content: "Quem Somos — 44CODE" },
-      { property: "og:description", content: "Tecnologia feita para resolver problemas reais, com segurança, estratégia e visão de crescimento." },
+      { title: "Sobre a 44CODE | Desenvolvimento de Software no Brasil" },
+      { name: "description", content: "Conheça a 44CODE, empresa de desenvolvimento de software no Brasil especializada em sistemas, sites e soluções com IA." },
+      { property: "og:title", content: "Sobre a 44CODE | Desenvolvimento de Software no Brasil" },
+      { property: "og:description", content: "Empresa de tecnologia fundada por Simone da Silva, com foco em software sob medida, segurança e resultados reais." },
     ],
   }),
   component: SobrePage,
@@ -33,11 +33,11 @@ function SobrePage() {
       <header className="mb-16 animate-fade-up">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Quem Somos</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-          Tecnologia feita para <span className="text-gradient">resolver problemas reais</span>, com segurança, estratégia e visão de crescimento.
+          Empresa de desenvolvimento de software no Brasil com foco em soluções sob medida
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
-          A <strong className="text-foreground">44CODE</strong> desenvolve sistemas, sites e soluções digitais sob medida
-          para empresas e pessoas que precisam de tecnologia confiável, funcional e preparada para evoluir.
+          A <strong className="text-foreground">44CODE</strong> é uma empresa de tecnologia especializada em desenvolvimento
+          de software, criação de sistemas e soluções com Inteligência Artificial.
         </p>
       </header>
 
@@ -50,9 +50,10 @@ function SobrePage() {
               Mais de <span className="text-gradient">15 anos</span> construindo tecnologia com propósito
             </h2>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              A 44CODE é uma empresa idealizada por sua fundadora, com mais de{" "}
-              <strong className="text-foreground">15 anos de experiência em tecnologia</strong>, atuando na construção de
-              soluções completas — do planejamento à operação — com foco em segurança, qualidade e crescimento sustentável.
+              Fundada por <strong className="text-foreground">Simone da Silva</strong>, profissional com mais de{" "}
+              <strong className="text-foreground">15 anos de experiência em tecnologia</strong>, a empresa atua com foco
+              em qualidade, segurança e resultados reais para negócios. Atendemos clientes em todo o Brasil,
+              desenvolvendo soluções sob medida para diferentes áreas.
             </p>
           </div>
         </div>
@@ -62,7 +63,8 @@ function SobrePage() {
       <section className="mb-16">
         <h2 className="text-3xl font-bold mb-3">O que fazemos</h2>
         <p className="text-muted-foreground mb-8 max-w-3xl">
-          Criamos soluções digitais alinhadas à necessidade real de cada cliente.
+          Criamos soluções digitais alinhadas à necessidade real de cada cliente, incluindo desenvolvimento de sistemas web com segurança,
+          criação de sites profissionais, integrações, automações e software para negócios em Santa Catarina e no Brasil.
         </p>
         <div className="grid gap-5 md:grid-cols-2">
           {[
