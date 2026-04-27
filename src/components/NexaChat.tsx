@@ -297,6 +297,9 @@ export function NexaChat() {
           )}
           role="dialog"
           aria-label="Chat com a Nexa"
+          onPointerDown={(event) => {
+            shouldRestoreFocusRef.current = event.currentTarget.contains(event.target as Node);
+          }}
         >
           {/* Header */}
           <div className="flex items-center justify-between gap-3 p-4 border-b border-border bg-gradient-to-r from-primary/10 to-accent/10 rounded-t-2xl">
@@ -370,6 +373,10 @@ export function NexaChat() {
                     <button
                       key={s}
                       type="button"
+                      onMouseDown={(event) => event.preventDefault()}
+                      onTouchStart={() => {
+                        shouldRestoreFocusRef.current = true;
+                      }}
                       onClick={() => sendMessage(s)}
                       className="min-h-9 rounded-xl border border-border bg-background px-3 py-2 text-left text-xs leading-snug transition-smooth hover:-translate-y-0.5 hover:border-primary hover:bg-muted hover:shadow-glow"
                     >
@@ -450,7 +457,11 @@ export function NexaChat() {
               size="icon"
               variant="ghost"
               disabled={uploading}
-              onClick={() => fileRef.current?.click()}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                shouldRestoreFocusRef.current = true;
+                fileRef.current?.click();
+              }}
               aria-label="Enviar arquivo"
               title="Anexar arquivo"
             >
@@ -469,7 +480,13 @@ export function NexaChat() {
               maxLength={2000}
               className="flex-1"
             />
-            <Button type="submit" size="icon" disabled={loading || !input.trim()} aria-label="Enviar">
+            <Button
+              type="submit"
+              size="icon"
+              disabled={loading || !input.trim()}
+              onMouseDown={(event) => event.preventDefault()}
+              aria-label="Enviar"
+            >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>
