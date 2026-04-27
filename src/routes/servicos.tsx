@@ -15,10 +15,10 @@ import {
 export const Route = createFileRoute("/servicos")({
   head: () => ({
     meta: [
-      { title: "Serviços — 44CODE | Sites, Sistemas, Design e Marketing Digital" },
-      { name: "description", content: "Desenvolvimento de sites, sistemas, web design, marketing digital, DevOps, segurança e automação com IA. Soluções end-to-end para empresas e pessoas." },
-      { property: "og:title", content: "Serviços — 44CODE" },
-      { property: "og:description", content: "Sites, sistemas, web design, marketing digital, cloud, segurança e automação com IA — tudo em um só lugar." },
+      { title: "Serviços de Desenvolvimento de Sistemas e Sites | 44CODE" },
+      { name: "description", content: "Criação de sites profissionais, desenvolvimento de sistemas web com segurança, software sob medida e automação de processos com IA no Brasil." },
+      { property: "og:title", content: "Serviços de Desenvolvimento de Sistemas e Sites | 44CODE" },
+      { property: "og:description", content: "Sistemas personalizados, sites profissionais, automações com IA, integrações e soluções digitais para empresas." },
     ],
   }),
   component: ServicosPage,
@@ -31,8 +31,8 @@ const categories = [
     services: [
       {
         icon: Globe,
-        title: "Desenvolvimento de Sites",
-        desc: "Sites institucionais, landing pages e lojas virtuais rápidos, responsivos e otimizados para SEO.",
+        title: "Criação de Sites",
+        desc: "Sites profissionais, modernos e otimizados para aparecer no Google e gerar clientes.",
       },
       {
         icon: Palette,
@@ -52,8 +52,8 @@ const categories = [
     services: [
       {
         icon: Code2,
-        title: "Engenharia de Software",
-        desc: "Arquitetura, design e desenvolvimento de aplicações Full Stack robustas e escaláveis.",
+        title: "Desenvolvimento de Sistemas",
+        desc: "Sistemas sob medida para atender exatamente o que sua empresa precisa, com segurança, performance e escalabilidade.",
       },
       {
         icon: Server,
@@ -84,7 +84,7 @@ const categories = [
       {
         icon: Bot,
         title: "Automação com IA",
-        desc: "Integração com modelos de IA (Grok, OpenAI) para chatbots, análise e produtividade.",
+        desc: "Automatizamos processos utilizando Inteligência Artificial, reduzindo custos e aumentando eficiência.",
       },
     ],
   },
@@ -96,10 +96,11 @@ function ServicosPage() {
       <header className="mb-14 text-center max-w-2xl mx-auto animate-fade-up">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Serviços</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Soluções <span className="text-gradient">end-to-end</span> em tecnologia e presença digital
+          Serviços de desenvolvimento de sistemas, sites e automação com IA
         </h1>
         <p className="text-muted-foreground">
-          Do site ao sistema, do design ao marketing, da nuvem à automação com IA — tudo o que sua marca precisa para crescer com consistência.
+          A 44CODE cria sistemas personalizados para empresas, sites profissionais e soluções com Inteligência Artificial
+          para negócios que precisam crescer com segurança, organização e presença digital.
         </p>
       </header>
 
@@ -136,10 +137,10 @@ function ServicosPage() {
 
       <section className="mt-20 rounded-2xl border border-border bg-gradient-card p-8 md:p-12 text-center animate-fade-up">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
-          Precisa de algo sob medida?
+          Vamos entender seu projeto?
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-          Conte o seu desafio e nós desenhamos a solução certa — do site ao sistema, com estratégia, design e tecnologia.
+          Conte o seu desafio e nós avaliamos a melhor solução — do site ao sistema, com estratégia, design, tecnologia e atendimento online para todo o Brasil.
         </p>
         <Link
           to="/contato"
