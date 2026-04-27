@@ -6,10 +6,10 @@ import { projectsCount } from "@/data/projects";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "44CODE — Tecnologia e Soluções | Conectando desafios a soluções" },
-      { name: "description", content: "44CODE — empresa de Engenharia de Software, Backend & Full Stack, DevOps, DevSecOps, Cibersegurança e Automação com IA. Fundada por Simone da Silva." },
-      { property: "og:title", content: "44CODE — Tecnologia e Soluções" },
-      { property: "og:description", content: "Conectando desafios a soluções: software, segurança e automação com IA." },
+      { title: "Desenvolvimento de Sistemas e Sites com IA | 44CODE" },
+      { name: "description", content: "Desenvolvimento de sistemas, criação de sites profissionais e soluções com inteligência artificial para empresas no Brasil e em Santa Catarina." },
+      { property: "og:title", content: "Desenvolvimento de Sistemas, Sites e IA | 44CODE" },
+      { property: "og:description", content: "Software sob medida, automação de processos e sistemas web seguros para negócios em todo o Brasil." },
     ],
   }),
   component: Index,
@@ -34,15 +34,15 @@ function Index() {
                 <Sparkles className="h-3.5 w-3.5 text-primary" /> 44CODE — disponível para novos projetos
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
-                <span className="text-gradient">44CODE</span> — Tecnologia e Soluções para o seu negócio
+                Desenvolvimento de Sistemas, Sites e Soluções com Inteligência Artificial
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed">
-                Conectando desafios a soluções. Engenharia de Software, Backend & Full Stack,
-                DevOps & DevSecOps, Cibersegurança e Automação com IA — fundada e liderada por Simone da Silva.
+                A 44CODE é especializada em criação de sistemas, sites e soluções tecnológicas sob medida.
+                Desenvolvemos software moderno, seguro e preparado para crescer com o seu negócio.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/empresa" className="inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth">
-                  Conheça a 44CODE <ArrowRight className="h-4 w-4" />
+                  Vamos entender seu projeto <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link to="/portfolio" className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-smooth">
                   Ver projetos
@@ -78,6 +78,31 @@ function Index() {
         </div>
       </section>
 
+      {/* VALUE */}
+      <section className="container mx-auto px-6 py-20 max-w-6xl">
+        <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] items-start">
+          <div>
+            <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Soluções para negócios</p>
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+              Transformamos ideias em <span className="text-gradient">sistemas reais</span>.
+            </h2>
+          </div>
+          <div className="space-y-5 text-muted-foreground leading-relaxed">
+            <p>
+              Criamos soluções digitais para empresas que precisam de organização, automação e crescimento.
+              Atuamos no desenvolvimento de sistemas personalizados, aplicações web, integrações e automações
+              com Inteligência Artificial, sempre com foco em segurança, performance e experiência de uso.
+            </p>
+            <p>
+              A 44CODE atende online para todo o Brasil e desenvolve software sob medida para negócios que buscam
+              eficiência, controle e presença digital profissional. Se sua empresa precisa sair de planilhas,
+              organizar processos, criar um sistema web seguro ou lançar um site otimizado para aparecer no Google,
+              nós estruturamos o caminho com clareza e responsabilidade técnica.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* STATS */}
       <section className="container mx-auto px-6 max-w-6xl">
         <div className="grid gap-6 sm:grid-cols-3 rounded-2xl border border-border bg-gradient-card p-8">
@@ -97,13 +122,14 @@ function Index() {
       {/* CTA */}
       <section className="container mx-auto px-6 py-24 max-w-4xl text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Pronta para construir o <span className="text-gradient">próximo projeto</span> com você
+          Solicite um orçamento para o <span className="text-gradient">seu projeto</span>
         </h2>
         <p className="text-muted-foreground mb-8">
-          Do design da arquitetura à operação segura em produção — vamos conversar.
+          Vamos entender sua necessidade e orientar o melhor caminho para criar um site profissional,
+          sistema personalizado ou automação com IA para sua empresa.
         </p>
         <Link to="/contato" className="inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth">
-          Entrar em contato <ArrowRight className="h-4 w-4" />
+          Fale com a 44CODE <ArrowRight className="h-4 w-4" />
         </Link>
       </section>
     </>

@@ -6,10 +6,10 @@ import { projects } from "@/data/projects";
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfólio — 44CodeSimone | Projetos & Repositórios" },
-      { name: "description", content: "Projetos de Simone da Silva: SaaS multi-tenant, APIs com IA, plataformas de turismo e mais." },
-      { property: "og:title", content: "Portfólio — 44CodeSimone" },
-      { property: "og:description", content: "Projetos reais em produção: água, turismo e IA." },
+      { title: "Portfólio de Sistemas, Sites e IA | 44CODE" },
+      { name: "description", content: "Projetos da 44CODE em desenvolvimento de sistemas, criação de sites, SaaS, APIs, automação de processos e soluções com IA." },
+      { property: "og:title", content: "Portfólio de Sistemas, Sites e IA | 44CODE" },
+      { property: "og:description", content: "Conheça projetos reais em software sob medida, sistemas web seguros, plataformas SaaS e soluções digitais." },
     ],
   }),
   component: PortfolioPage,
@@ -21,10 +21,11 @@ function PortfolioPage() {
       <header className="mb-14 text-center animate-fade-up">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Portfólio</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="text-gradient">Projetos</span>
+          <span className="text-gradient">Projetos</span> em software, sites e IA
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Uma seleção de projetos desenvolvidos com foco em arquitetura, segurança e escalabilidade.
+          Uma seleção de projetos desenvolvidos com foco em arquitetura, segurança, escalabilidade e valor real para negócios.
+          Cada entrega reflete experiência em desenvolvimento de software sob medida, sistemas web e soluções com Inteligência Artificial.
         </p>
       </header>
 
@@ -72,13 +73,13 @@ function PortfolioPage() {
             <strong className="text-foreground">Simone da Silva</strong> é Analista de Sistemas, idealizadora e fundadora da 44CODE.
           </p>
           <p>
-            Com mais de <strong className="text-foreground">15 anos de experiência em tecnologia</strong>, atua na criação de sistemas, plataformas e soluções digitais que vão além do funcionamento básico — são pensadas para serem seguras, organizadas e preparadas para crescer.
+            Com mais de <strong className="text-foreground">15 anos de experiência em tecnologia</strong>, atua na criação de sistemas personalizados para empresas, plataformas e soluções digitais que vão além do funcionamento básico — são pensadas para serem seguras, organizadas e preparadas para crescer.
           </p>
           <p>
             Sua atuação conecta engenharia de software, arquitetura de sistemas, backend, full stack, DevOps, DevSecOps e cibersegurança, sempre com foco em entregar soluções consistentes, confiáveis e alinhadas à realidade de quem utiliza.
           </p>
           <p>
-            Ao longo da sua trajetória, desenvolveu projetos completos — desde a ideia até a operação — incluindo plataformas SaaS, APIs escaláveis, sistemas web e soluções com Inteligência Artificial.
+            Ao longo da sua trajetória, desenvolveu projetos completos — desde a ideia até a operação — incluindo plataformas SaaS, APIs escaláveis, sistemas web seguros e soluções com Inteligência Artificial para negócios.
           </p>
           <p>
             É graduada em <strong className="text-foreground">Análise e Desenvolvimento de Sistemas pela UNIGRAN</strong> e possui formação em cibersegurança pelo programa <strong className="text-foreground">Hackers do Bem (RNP, Softex e SENAI)</strong>, além de manter atualização contínua nas áreas de DevOps, DevSecOps, desenvolvimento de aplicações web, arquitetura de software, banco de dados e computação em nuvem (cloud computing).
@@ -98,7 +99,7 @@ function PortfolioPage() {
           Cada projeto apresentado aqui não é apenas um sistema entregue.
         </p>
         <p className="text-muted-foreground leading-relaxed mb-8">
-          É resultado de um processo pensado, estruturado e executado com <strong className="text-foreground">responsabilidade técnica</strong>, <strong className="text-foreground">visão de negócio</strong> e <strong className="text-foreground">foco no longo prazo</strong>.
+          É resultado de um processo pensado, estruturado e executado com <strong className="text-foreground">responsabilidade técnica</strong>, <strong className="text-foreground">visão de negócio</strong> e <strong className="text-foreground">foco no longo prazo</strong>, atendendo empresas em Santa Catarina e em todo o Brasil.
         </p>
         <Link
           to="/contato"

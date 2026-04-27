@@ -7,10 +7,10 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/contato")({
   head: () => ({
     meta: [
-      { title: "Contato — 44CODE | Simone da Silva" },
-      { name: "description", content: "Entre em contato com a 44CODE para projetos em Engenharia de Software, DevOps e Cibersegurança." },
-      { property: "og:title", content: "Contato — 44CODE" },
-      { property: "og:description", content: "Vamos conversar sobre seu próximo projeto." },
+      { title: "Contato 44CODE | Solicite um Orçamento" },
+      { name: "description", content: "Fale com a 44CODE para desenvolvimento de sistemas, criação de sites profissionais, automação com IA e software sob medida no Brasil." },
+      { property: "og:title", content: "Contato 44CODE | Solicite um Orçamento" },
+      { property: "og:description", content: "Vamos entender seu projeto e orientar a melhor solução digital para sua empresa." },
     ],
   }),
   component: ContatoPage,
@@ -95,10 +95,11 @@ function ContatoPage() {
       <header className="mb-14 text-center animate-fade-up">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">Contato</p>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Vamos <span className="text-gradient">construir juntos</span>
+          Fale com a 44CODE para desenvolver seu projeto
         </h1>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Tem um projeto, ideia ou desafio técnico? Será um prazer conversar.
+          Solicite um orçamento para criação de sites profissionais, desenvolvimento de sistemas,
+          automação de processos ou soluções com Inteligência Artificial.
         </p>
       </header>
 
@@ -135,6 +136,9 @@ function ContatoPage() {
           onSubmit={handleSubmit}
         >
           <h2 className="text-lg font-semibold mb-2">Envie uma mensagem</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Vamos entender seu projeto com coleta mínima de dados, transparência e atendimento online para todo o Brasil.
+          </p>
 
           <div className="space-y-1">
             <label htmlFor="name" className="text-xs text-muted-foreground">Nome <span className="text-destructive">*</span></label>
@@ -170,7 +174,7 @@ function ContatoPage() {
               name="message"
               rows={5}
               maxLength={1000}
-              placeholder="Conte sobre seu projeto..."
+              placeholder="Conte sobre seu projeto, objetivo e urgência..."
               aria-invalid={!!errors.message}
               className={`${inputBase} resize-none ${errors.message ? inputErr : inputOk}`}
             />

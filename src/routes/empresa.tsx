@@ -5,10 +5,10 @@ import logo from "@/assets/logo-44code-wide.png";
 export const Route = createFileRoute("/empresa")({
   head: () => ({
     meta: [
-      { title: "44CODE — Tecnologia e Soluções | Empresa" },
-      { name: "description", content: "44CODE — Tecnologia e Soluções: empresa de engenharia de software, DevOps, cibersegurança e automação com IA. Conectando desafios a soluções." },
-      { property: "og:title", content: "44CODE — Tecnologia e Soluções" },
-      { property: "og:description", content: "Conectando desafios a soluções: software, segurança e automação." },
+      { title: "44CODE | Empresa de Tecnologia em Santa Catarina" },
+      { name: "description", content: "44CODE é uma empresa de tecnologia em Santa Catarina com atendimento online para todo o Brasil, especializada em sistemas, sites e IA." },
+      { property: "og:title", content: "44CODE | Empresa de Tecnologia em Santa Catarina" },
+      { property: "og:description", content: "Desenvolvimento de software sob medida, criação de sistemas personalizados, sites profissionais e automação com IA." },
     ],
   }),
   component: EmpresaPage,
@@ -27,13 +27,13 @@ function EmpresaPage() {
         <div>
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">A empresa</p>
           <h1 className="text-4xl md:text-5xl font-bold mb-5">
-            <span className="text-gradient">44CODE</span> — Tecnologia e Soluções
+            <span className="text-gradient">44CODE</span> — empresa de tecnologia em Santa Catarina
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-            Conectando desafios a soluções. A 44CODE nasceu para entregar tecnologia
-            sob medida — do design da arquitetura ao deploy seguro em produção. Atuamos em
-            engenharia de software, DevOps, DevSecOps, cibersegurança e automação com
-            Inteligência Artificial.
+            Conectando desafios a soluções. A 44CODE nasceu para entregar desenvolvimento de software
+            sob medida — do planejamento à operação segura. Atuamos na criação de sistemas personalizados,
+            sites profissionais, automação de processos, cibersegurança e soluções com Inteligência Artificial,
+            com atendimento online para todo o Brasil.
           </p>
         </div>
         <div className="relative mx-auto md:mx-0 w-full max-w-md animate-float">
@@ -63,11 +63,11 @@ function EmpresaPage() {
         </div>
         <div className="grid gap-4 md:grid-cols-2 text-sm">
           {[
-            "Equipe com formação em Análise e Desenvolvimento de Sistemas",
+            "Experiência em desenvolvimento de sistemas web com segurança",
             "Especialização contínua em Cibersegurança (Programa Hackers do Bem / RNP)",
             "Foco em DevSecOps: segurança integrada ao ciclo de desenvolvimento",
             "Plataformas SaaS multi-tenant em produção",
-            "Automação inteligente com integração a modelos de IA",
+            "Automação inteligente com soluções de Inteligência Artificial",
             "Parceria próxima, comunicação clara e entregas iterativas",
           ].map((s) => (
             <div key={s} className="flex items-start gap-3">
@@ -79,7 +79,7 @@ function EmpresaPage() {
 
         <div className="mt-8">
           <Link to="/contato" className="inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth">
-            Solicitar uma proposta <ArrowRight className="h-4 w-4" />
+            Solicite um orçamento <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
