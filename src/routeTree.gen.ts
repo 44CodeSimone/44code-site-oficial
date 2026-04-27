@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicosRouteImport } from './routes/servicos'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as ContatoRouteImport } from './routes/contato'
@@ -23,9 +25,19 @@ const SobreRoute = SobreRouteImport.update({
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicosRoute = ServicosRouteImport.update({
   id: '/servicos',
   path: '/servicos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -64,7 +76,9 @@ export interface FileRoutesByFullPath {
   '/contato': typeof ContatoRoute
   '/empresa': typeof EmpresaRoute
   '/portfolio': typeof PortfolioRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/servicos': typeof ServicosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/api/chat': typeof ApiChatRoute
   '/api/send-lead': typeof ApiSendLeadRoute
@@ -74,7 +88,9 @@ export interface FileRoutesByTo {
   '/contato': typeof ContatoRoute
   '/empresa': typeof EmpresaRoute
   '/portfolio': typeof PortfolioRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/servicos': typeof ServicosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/api/chat': typeof ApiChatRoute
   '/api/send-lead': typeof ApiSendLeadRoute
@@ -85,7 +101,9 @@ export interface FileRoutesById {
   '/contato': typeof ContatoRoute
   '/empresa': typeof EmpresaRoute
   '/portfolio': typeof PortfolioRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/servicos': typeof ServicosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/api/chat': typeof ApiChatRoute
   '/api/send-lead': typeof ApiSendLeadRoute
@@ -97,7 +115,9 @@ export interface FileRouteTypes {
     | '/contato'
     | '/empresa'
     | '/portfolio'
+    | '/robots.txt'
     | '/servicos'
+    | '/sitemap.xml'
     | '/sobre'
     | '/api/chat'
     | '/api/send-lead'
@@ -107,7 +127,9 @@ export interface FileRouteTypes {
     | '/contato'
     | '/empresa'
     | '/portfolio'
+    | '/robots.txt'
     | '/servicos'
+    | '/sitemap.xml'
     | '/sobre'
     | '/api/chat'
     | '/api/send-lead'
@@ -117,7 +139,9 @@ export interface FileRouteTypes {
     | '/contato'
     | '/empresa'
     | '/portfolio'
+    | '/robots.txt'
     | '/servicos'
+    | '/sitemap.xml'
     | '/sobre'
     | '/api/chat'
     | '/api/send-lead'
@@ -128,7 +152,9 @@ export interface RootRouteChildren {
   ContatoRoute: typeof ContatoRoute
   EmpresaRoute: typeof EmpresaRoute
   PortfolioRoute: typeof PortfolioRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   ServicosRoute: typeof ServicosRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiSendLeadRoute: typeof ApiSendLeadRoute
@@ -143,11 +169,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicos': {
       id: '/servicos'
       path: '/servicos'
       fullPath: '/servicos'
       preLoaderRoute: typeof ServicosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -200,7 +240,9 @@ const rootRouteChildren: RootRouteChildren = {
   ContatoRoute: ContatoRoute,
   EmpresaRoute: EmpresaRoute,
   PortfolioRoute: PortfolioRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   ServicosRoute: ServicosRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   ApiChatRoute: ApiChatRoute,
   ApiSendLeadRoute: ApiSendLeadRoute,
