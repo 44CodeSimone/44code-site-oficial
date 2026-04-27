@@ -93,8 +93,19 @@ export function NexaChat() {
   const sentRef = useRef(false); // evita envio duplo
   const sessionId = useMemo(() => crypto.randomUUID(), []);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const shouldRestoreFocusRef = useRef(false);
+
+  const focusMessageInput = (delay = 0) => {
+    if (!open) return;
+    window.setTimeout(() => {
+      requestAnimationFrame(() => {
+        inputRef.current?.focus({ preventScroll: true });
+      });
+    }, delay);
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -103,8 +114,17 @@ export function NexaChat() {
   }, [messages, loading, open, uploads]);
 
   useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 200);
+    if (open) {
+      shouldRestoreFocusRef.current = true;
+      focusMessageInput(180);
+    }
   }, [open]);
+
+  useEffect(() => {
+    if (open && shouldRestoreFocusRef.current && !uploading) {
+      focusMessageInput(40);
+    }
+  }, [messages, loading, open, uploading]);
 
   async function sendLeadEmail(currentLead: Lead, intent: string, transcript: Msg[]) {
     if (sentRef.current) return;
@@ -144,10 +164,12 @@ export function NexaChat() {
   async function sendMessage(text: string) {
     const trimmed = text.trim();
     if (!trimmed || loading) return;
+    shouldRestoreFocusRef.current = true;
     const next: Msg[] = [...messages, { role: "user", content: trimmed }];
     setMessages(next);
     setInput("");
     setLoading(true);
+    focusMessageInput();
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 30000);
@@ -202,6 +224,7 @@ export function NexaChat() {
 
   async function handleFiles(files: FileList | null) {
     if (!files || !files.length) return;
+    shouldRestoreFocusRef.current = true;
     setUploadError(null);
     setUploading(true);
     try {
@@ -237,11 +260,13 @@ export function NexaChat() {
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
+      focusMessageInput(120);
     }
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    shouldRestoreFocusRef.current = true;
     sendMessage(input);
   }
 
@@ -264,6 +289,7 @@ export function NexaChat() {
 
       {open && (
         <div
+          ref={chatRef}
           className={cn(
             "fixed z-50 bg-card border border-border shadow-2xl flex flex-col",
             "inset-x-2 bottom-2 top-16 rounded-2xl",
