@@ -38,11 +38,14 @@ const INITIAL_MESSAGE: Msg = {
 };
 
 const SUGGESTIONS = [
-  "Quero criar um site",
-  "Preciso de um sistema",
-  "Quero automatizar um processo",
-  "Preciso de um orçamento",
-  "Tenho uma ideia de projeto",
+  "Criar um site profissional",
+  "Desenvolver um sistema",
+  "Automatizar um processo",
+  "Criar uma solução com IA",
+  "Modernizar um site existente",
+  "Integrar sistemas ou APIs",
+  "Tirar uma ideia do papel",
+  "Solicitar um orçamento",
 ];
 
 function renderContent(text: string) {
@@ -334,15 +337,15 @@ export function NexaChat() {
             )}
 
             {messages.length === 1 && !loading && (
-              <div className="pt-2">
-                <p className="text-xs text-muted-foreground mb-2">Sugestões:</p>
-                <div className="flex flex-wrap gap-2">
+              <div className="pt-2 space-y-2">
+                <p className="text-xs text-muted-foreground">Sugestões:</p>
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {SUGGESTIONS.map((s) => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => sendMessage(s)}
-                      className="text-xs px-3 py-1.5 rounded-full border border-border bg-background hover:bg-muted transition-colors"
+                      className="min-h-9 rounded-xl border border-border bg-background px-3 py-2 text-left text-xs leading-snug transition-smooth hover:-translate-y-0.5 hover:border-primary hover:bg-muted hover:shadow-glow"
                     >
                       {s}
                     </button>
